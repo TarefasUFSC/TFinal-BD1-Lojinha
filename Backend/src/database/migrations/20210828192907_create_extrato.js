@@ -2,16 +2,17 @@
 exports.up = function(knex) {
     return knex.schema.createTable('Extrato', function(table){
         table.increments("id_Extrato").primary();
-        table.timestamp("Data").notNullable();
-        table.foreign('id_Cliente')
+        table.timestamp('Data').defaultTo(knex.fn.now())
+        table.integer('id_Cliente')
             .references('id_Cliente')
             .inTable('Cliente')   
-        table.decimal("Movimentação", 58).notNullable(); 
+            .notNullable()
+        table.decimal("Movimentação").notNullable(); 
   
     })
   };
   
   exports.down = function(knex) {
-    return knex.schema.dropTable('Extrato');
+    return knex.schema.dropTableIfExists('Extrato');
   };
   
