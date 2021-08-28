@@ -7,7 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon src/server.js",
 		"migrations": "npx knex migrate:latest",
-		"seed": "npx knex seed:run"
+		"seed": "npx knex migrate:rollback --all && npm run migrations && npx knex seed:run"
 	},
 	"keywords": [],
 	"author": "",

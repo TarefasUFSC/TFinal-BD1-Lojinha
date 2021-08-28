@@ -5,7 +5,8 @@ exports.up = function(knex) {
       table.string("Estado",2);
       table.string("CEP",20);  
       table.string("Cidade", 58); 
-      table.string("Endereco",150);   
+      table.string("Endereco",150);
+      table.string("Complemento");   
       table.decimal("Saldo").notNullable();   
       table.text("ImagemPerfil"); 
       table.string("Senha").notNullable();  
