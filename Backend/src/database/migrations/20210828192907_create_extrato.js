@@ -7,7 +7,7 @@ exports.up = function(knex) {
             .references('id_Cliente')
             .inTable('Cliente')   
             .notNullable()
-        table.decimal("Movimentação").notNullable(); 
+        table.decimal("Movimentacao").notNullable(); 
   
     })
   };

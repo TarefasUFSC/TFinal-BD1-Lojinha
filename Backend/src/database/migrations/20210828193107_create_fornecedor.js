@@ -5,12 +5,12 @@ exports.up = function(knex) {
         table.string("Nome",60).notNullable();
         table.string("Email").notNullable();
         table.string("Senha").notNullable();
-        table.string("ImagemPerfil").notNullable(); 
-        table.string("CEP");
+        table.text("ImagemPerfil"); 
+        table.string("CEP",20);
         table.string("Estado",2);
         table.string("Endereco");
         table.string("Cidade",58);
-        table.string("Descricao");
+        table.text("Descricao");
     })
   };
   

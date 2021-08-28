@@ -6,9 +6,9 @@ exports.up = function(knex) {
             .references('id_Fornecedor')
             .inTable('Fornecedor')   
             .notNullable()
-        table.string("Imagem").notNullable(); 
+        table.text("Imagem").notNullable(); //b64
         table.decimal("Valor").notNullable();
-        table.string("Descricao");
+        table.text("Descricao");
         table.string("Nome",60).notNullable();
   
     })
