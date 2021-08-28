@@ -11,6 +11,7 @@ exports.up = function(knex) {
         table.string("Endereco");
         table.string("Cidade",58);
         table.text("Descricao");
+        table.decimal("Saldo");
     })
   };
   

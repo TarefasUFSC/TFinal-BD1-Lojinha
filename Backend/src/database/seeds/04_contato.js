@@ -5,7 +5,7 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('Contato').insert([
-        //{id_Fornecedor: 1, colName: 'rowValue1'},
+        {id_Fornecedor: 1, colName: 'rowValue1'},
       ]);
     });
 };
