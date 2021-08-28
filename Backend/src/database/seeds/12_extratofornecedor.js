@@ -5,7 +5,7 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('ExtratoFornecedor').insert([
-        //{Data:parseInt(new Date(2021,07,04).getTime()/1000),id_Fornecedor:1,Movimentacao:-300},
+        {Data:parseInt(new Date(2021,07,04).getTime()/1000),id_Fornecedor:1,Movimentacao:-300},
       ]);
     });
 };
