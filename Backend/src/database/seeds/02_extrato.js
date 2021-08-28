@@ -24,5 +24,6 @@ exports.seed = function(knex) {
         {Data:parseInt(new Date(2021,04,29).getTime()/1000),id_Cliente:6,Movimentacao:100},
         {Data:parseInt(new Date(2021,05,15).getTime()/1000),id_Cliente:6,Movimentacao:-50},
         {Data:parseInt(new Date(2021,06,23).getTime()/1000),id_Cliente:6,Movimentacao:-50},
+      ])
     });
 };
