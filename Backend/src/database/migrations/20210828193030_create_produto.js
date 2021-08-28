@@ -8,6 +8,7 @@ exports.up = function(knex) {
             .notNullable()
         table.text("Imagem").notNullable(); //b64
         table.decimal("Valor").notNullable();
+        table.integer("Quantidade").notNullable();
         table.text("Descricao");
         table.string("Nome",60).notNullable();
   

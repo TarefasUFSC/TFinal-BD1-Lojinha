@@ -5,21 +5,21 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('Categoria').insert([
-        {nome:"Camisa Masculina"},
-        {nome:"Camisa Feminina"},
+        {nome_categoria:"Camisa Masculina"},
+        {nome_categoria:"Camisa Feminina"},
 
-        {nome:"Calça Masculina"},
-        {nome:"Calça Feminina"},
+        {nome_categoria:"Calça Masculina"},
+        {nome_categoria:"Calça Feminina"},
 
-        {nome:"Short Masculino"},
-        {nome:"Short Feminino"},
+        {nome_categoria:"Short Masculino"},
+        {nome_categoria:"Short Feminino"},
 
-        {nome:"Tênis Masculino"},
-        {nome:"Tênis Feminino"},
+        {nome_categoria:"Tênis Masculino"},
+        {nome_categoria:"Tênis Feminino"},
 
         
-        {nome:"Acessório"},
-        {nome:"Eletrônicos"},
+        {nome_categoria:"Acessório"},
+        {nome_categoria:"Eletrônicos"},
       ]);
     });
 };
