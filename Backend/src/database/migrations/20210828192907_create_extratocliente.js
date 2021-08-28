@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable('Extrato', function(table){
-        table.increments("id_Extrato").primary();
+    return knex.schema.createTable('ExtratoCliente', function(table){
+        table.increments("id_ExtratoCliente").primary();
         table.timestamp('Data').defaultTo(knex.fn.now())
         table.integer('id_Cliente')
             .references('id_Cliente')
@@ -13,6 +13,6 @@ exports.up = function(knex) {
   };
   
   exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('Extrato');
+    return knex.schema.dropTableIfExists('ExtratoCliente');
   };
   
