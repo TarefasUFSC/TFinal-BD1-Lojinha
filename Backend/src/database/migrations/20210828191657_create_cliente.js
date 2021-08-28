@@ -11,6 +11,7 @@ exports.up = function(knex) {
       table.text("ImagemPerfil"); 
       table.string("Senha").notNullable();  
       table.string("Nome").notNullable();   
+      table.string("email").notNullable();   
 
   })
 };
