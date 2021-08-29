@@ -17,6 +17,7 @@ exports.seed = function(knex) {
         {id_Produto:9,id_Categoria:3},
         {id_Produto:10,id_Categoria:4},
         {id_Produto:11,id_Categoria:9},
+        {id_Produto:11,id_Categoria:10},
       ]);
     });
 };

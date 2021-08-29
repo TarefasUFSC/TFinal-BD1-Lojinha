@@ -1,11 +1,32 @@
 const express = require("express")
-const ExtratoClienteController = require("./controllers/ExtratoClienteController")
-const ProdutoController = require("./controllers/ProdutoController")
+const ExtratoClienteController = require("./controllers/User/ExtratoClienteController")
+const ProdutoController = require("./controllers/Produto/ProdutoController")
+const RegisterController = require('./controllers/User/RegisterController')
+const LoginController = require("./controllers/User/LoginController")
 
 const routes = express.Router()
+
+
 // req.query
 // req.params
 // req.body
-routes.get('/extrato/cliente',ExtratoClienteController.getAllExtByID)
-routes.get('/produtos',ProdutoController.getAllProdutos)
+
+/*Rotas de registro */
+const registerRouter = express.Router({mergeParams: true})
+routes.use('/registro',registerRouter)
+registerRouter.post("/cliente",RegisterController.registroCliente)
+registerRouter.post("/fornecedor",RegisterController.registroFornecedor)
+
+/*Rotas de Login */
+routes.post("/login",LoginController.login)
+
+/*Rotas de Produto */
+const productsRouter = express.Router({mergeParams: true})
+routes.use('/produto',productsRouter)
+productsRouter.get('/categoria',ProdutoController.getAllCategorias)
+productsRouter.get('/',ProdutoController.getAllProdutos)
+
+
+
+routes.get('/extrato/cliente',ExtratoClienteController.getAllExtByID) //isso aqui na real é /user/extrato/{id}
 module.exports = routes
