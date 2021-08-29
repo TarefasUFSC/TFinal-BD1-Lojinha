@@ -25,9 +25,9 @@ exports.seed = function(knex) {
 
         {Data:parseInt(new Date(2021,05,26).getTime()/1000),id_Cliente:3,Movimentacao:300},
         {Data:parseInt(new Date(2021,05,27).getTime()/1000),id_Cliente:3,Movimentacao:-249}, //Skin de LoL e Smart watch
-        {Data:parseInt(new Date(2021,05,30).getTime()/1000),id_Cliente:3,Movimentacao:60},
-        {Data:parseInt(new Date(2021,05,30).getTime()/1000),id_Cliente:3,Movimentacao:-100}, //Roupa de Grife masculina
         {Data:parseInt(new Date(2021,05,28).getTime()/1000),id_Cliente:3,Movimentacao:100},
+        {Data:parseInt(new Date(2021,05,29).getTime()/1000),id_Cliente:3,Movimentacao:60},
+        {Data:parseInt(new Date(2021,05,30).getTime()/1000),id_Cliente:3,Movimentacao:-100}, //Roupa de Grife masculina
         {Data:parseInt(new Date(2021,06,16).getTime()/1000),id_Cliente:3,Movimentacao:200},
         {Data:parseInt(new Date(2021,06,23).getTime()/1000),id_Cliente:3,Movimentacao:90},
         {Data:parseInt(new Date(2021,06,30).getTime()/1000),id_Cliente:3,Movimentacao:-60}, //Camisa Roxa Feminina
