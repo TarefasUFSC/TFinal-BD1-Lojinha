@@ -15,13 +15,16 @@ module.exports = {
             quantidade = parseInt(quantidade);
         }
         if(categorias == undefined || categorias == ''){
+            
             categorias = []
+            const cats = await connection("Categoria").select("*");
+            for(i in cats){
+                categorias.push(cats[i].id_Categoria)
+            }
         }else{
             categorias = categorias.split('+');
         }
-        if(categorias != [] && categorias != undefined && categorias != '')
-        {
-            const prods = await connection("Produto")
+        const prods = await connection("Produto")
                 .distinct('Nome').join('ProdutoCategoria', function() {
                 this.on('ProdutoCategoria.id_Produto', '=', 'Produto.id_Produto')
                 })
@@ -30,16 +33,6 @@ module.exports = {
                 .limit(quantidade);
                 
             return res.json({"response":{"Produtos":prods}})
-        }else{
-            const prods = await connection("Produto")
-                .distinct('Nome').join('ProdutoCategoria', function() {
-                this.on('ProdutoCategoria.id_Produto', '=', 'Produto.id_Produto')
-                })
-                .where('Nome', 'like', busca)
-                .limit(quantidade);
-                
-            return res.json({"response":{"Produtos":prods}})
-        }
     },
     async getAllCategorias(req,res){
         
