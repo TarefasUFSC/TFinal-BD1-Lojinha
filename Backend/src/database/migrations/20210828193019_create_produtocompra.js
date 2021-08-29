@@ -10,6 +10,7 @@ exports.up = function(knex) {
             .references('id_Compra')
             .inTable('Compra')   
             .notNullable()
+        table.integer("Quantidade").notNullable();
     })
   };
   
