@@ -30,7 +30,7 @@ module.exports = {
             if (prd.length) {
                 const op = await connection("Comentario").insert({
                     id_Produto: id,
-                    Data: Date.now(),
+                    Data: parseInt(Date.now() / 1000),
                     id_Cliente: id_cliente,
                     Descricao: comentario,
                     Nota: nota
