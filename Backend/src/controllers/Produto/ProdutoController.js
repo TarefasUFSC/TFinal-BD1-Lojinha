@@ -67,6 +67,7 @@ module.exports = {
         return res.json({ "id": "oi" })
     },
     async deleteProduto(req, res) {
+        // ele não deleta as referencias a ele quando exclui, então fica as fk apontando pro nada.... tem que ver isso ai
         const { id } = req.params;
         const { fornecedor } = req.headers;
         const prd = await connection("Produto")
