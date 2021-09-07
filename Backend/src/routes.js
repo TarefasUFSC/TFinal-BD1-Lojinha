@@ -26,7 +26,9 @@ const productsRouter = express.Router({ mergeParams: true })
 routes.use('/produto', productsRouter)
 productsRouter.get('/categoria', ProdutoController.getAllCategorias)
 productsRouter.get('/', ProdutoController.getAllProdutos)
+productsRouter.post('/comentario/:id', ComentarioController.newComentario)
 productsRouter.get('/comentario/:id', ComentarioController.getAllComentariosById)
+productsRouter.get('/:id', ProdutoController.details)
 
 
 
