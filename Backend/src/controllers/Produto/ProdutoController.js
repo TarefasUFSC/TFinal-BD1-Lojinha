@@ -65,5 +65,23 @@ module.exports = {
     },
     async newProduto(req, res) {
         return res.json({ "id": "oi" })
+    },
+    async deleteProduto(req, res) {
+        const { id } = req.params;
+        const { fornecedor } = req.headers;
+        const prd = await connection("Produto")
+            .select("id_Fornecedor").where("id_Produto", id);
+        if (prd.length) {
+            let idF = prd[0]["id_Fornecedor"];
+            if (parseInt(idF) == parseInt(fornecedor)) {
+                const op = await connection("Produto").where("id_produto", id).del();
+                return res.json({ "Response": "Deleção concluida" })
+            } else {
+                return res.json({
+                    "Erro": "Voce não pode fazer isso"
+                });
+            }
+        }
+        return res.json({ "Erro": "Produto não encontrado" })
     }
 };

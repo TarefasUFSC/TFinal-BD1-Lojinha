@@ -4,6 +4,7 @@ const ProdutoController = require("./controllers/Produto/ProdutoController")
 const RegisterController = require('./controllers/User/RegisterController')
 const LoginController = require("./controllers/User/LoginController")
 const ComentarioController = require('./controllers/Produto/ComentarioController')
+const UserController = require("./controllers/User/UserController")
 
 const routes = express.Router()
 
@@ -29,8 +30,12 @@ productsRouter.get('/', ProdutoController.getAllProdutos)
 productsRouter.post('/comentario/:id', ComentarioController.newComentario)
 productsRouter.get('/comentario/:id', ComentarioController.getAllComentariosById)
 productsRouter.get('/:id', ProdutoController.details)
+productsRouter.delete('/:id', ProdutoController.deleteProduto)
 
-
+/*Rotas de Usuario */
+const userRouter = express.Router({ mergeParams: true })
+routes.use('/user', userRouter)
+userRouter.get('/lista/:id', UserController.getListaDeDesejo)
 
 routes.get('/extrato/cliente', ExtratoClienteController.getAllExtByID) //isso aqui na real é /user/extrato/{id}
 module.exports = routes
