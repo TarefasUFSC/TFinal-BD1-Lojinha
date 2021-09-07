@@ -49,7 +49,7 @@ module.exports = {
             .join("Fornecedor", function () {
                 this.on("Fornecedor.id_Fornecedor", "Produto.id_Fornecedor")
             })
-            .where("Produto.id_produto", id)
+            .where("Produto.id_Produto", id)
             .groupBy("Produto.id_Produto");
 
         if (dets.length) {
