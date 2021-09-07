@@ -13,13 +13,13 @@ body {
     -webkit-font-smoothing: antialised;
 }
 
-input, button, textarea{
+/*input, button, textarea{
     font: 400 18px Hina Mincho, sans-serif;
 }
 
 button{
     cursor: pointer;
-}
+}*/
 
 form input{
     width: 100%;
@@ -41,7 +41,7 @@ form textarea{
     line-height: 24px;
 }
 
-.button{
+/*.button{
     width:40%;
     height: 60px;
     background: #e02041;
@@ -59,7 +59,7 @@ form textarea{
 
 .button:hover{
     filter: brightness(90%);
-}
+}*/
 
 .back-link{
     display: flex;

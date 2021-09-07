@@ -1,85 +1,103 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
+import api from '../../services/api'
 
-import api from '../../services/api';
 import './styles.css';
 
 import logoImg from '../../assets/logo.png';
+import vertical from '../../assets/vertical.png';
 
-export default function Register(){
-    const[name, setName] = useState('');
+//()=>{alert('Registrou-se')}
+
+export default function Resgister(){
+    const[Nome, setNome] = useState('');
     const[email, setEmail] = useState('');
-    const[Whatsapp, setWhatsapp] = useState('');
-    const[city, setCity] = useState('');
-    const[uf, setUf] = useState('');
+    const[Senha, setSenha] = useState('');
+    const[confirma, setConfirma] = useState('');
+    const[cargo, setCargo] = useState('');
 
     async function handleRegister(e){
         e.preventDefault();
+        let path = ''
         const data = {
-            name,
+            Nome,
             email,
-            Whatsapp,
-            city,
-            uf
+            Senha,
+            confirma,
+            cargo
         }
-        try{
-            const response = await api.post('ongs', data)
-
-            alert(`Seu ID de acesso: ${response.data.id}`);
-        } catch (err){
-            alert('Erro no cadastro, tente novamente.')
+        if(data.cargo === ''){
+            alert(`Cargo não selecionado`)
+        }
+        else{
+            if(data.Senha !== data.confirma) alert(`As senhas não batem`)
+            else { 
+                console.log(data)
+                if(data.cargo === "Comprador") path = 'registro/cliente'
+                else path = 'registro/cliente'
+                try{
+                    const response = await api.post(path, data)
+                    alert(`Deu bom? Confira: ${response}`)
+                }catch (err){
+                    alert(`Deu ruim`)
+                }
+            }
         }
     }
-    
     return(
         <div className="register-container">
-            <div className="content">
-                <section>
-                    <img src={logoImg} alt="Logo"/>
-                    <h1>Cadastro</h1>
-                    <p>Faça seu cadastro e blablabla</p>
-                    <Link className="back-link" to="/">
-                        <FiArrowLeft size={16} color="#e02041"/>
-                        Voltar para o Login
-                    </Link>
-                </section>
-                <form onSubmit={handleRegister}>
-                    <input
-                        placeholder="Nome da ONG"
-                        value={name}
-                        onChange={e=>setName(e.target.value)}
-                    />
-
-                    <input 
-                        type="email" 
-                        placeholder="Email"
-                        value={email}
-                        onChange={e=>setEmail(e.target.value)}
-                    />
-                   
-                    <input
-                        placeholder="WhatsApp"
-                        value={Whatsapp}
-                        onChange={e=>setWhatsapp(e.target.value)}
-                    />
-
-                    <div className="input-group">
-                        <input
-                            placeholder="Cidade"
-                            value={city}
-                            onChange={e=>setCity(e.target.value)}
+            <div className="register-img-container">
+                <img className="logo-img" height="300px" width="auto" src={logoImg} alt="Logo"/>
+            </div>
+            <div>
+                <img className="register-vertical" src={vertical} alt="Line"/>
+            </div>
+            <div className="register-data-container">
+                <div className="register-title-container">
+                    <p><b>Registro</b></p>
+                </div>
+                <div className="register-form-container">
+                    <form onSubmit={handleRegister}>
+                        <input 
+                            placeholder="Nome"
+                            value = {Nome}
+                            onChange={e=>setNome(e.target.value)}
                         />
-                        
-                        <input
-                            placeholder="UF"
-                            style={{width:80}}
-                            value={uf}
-                            onChange={e=>setUf(e.target.value)}
+                        <input 
+                            type="email" placeholder="Email"
+                            value = {email}
+                            onChange={e=>setEmail(e.target.value)}
                         />
-                    </div>
-                    <button className="button" type="submit">CADASTRAR</button>
-                </form>
+                        <input 
+                            type="password" placeholder="Senha"
+                            value = {Senha}
+                            onChange={e=>setSenha(e.target.value)}
+                        />
+                        <input 
+                            type="password" placeholder="Confirme a senha"
+                            value = {confirma}
+                            onChange={e=>setConfirma(e.target.value)}
+                        />
+                        <div className="register-checkbox-container">
+                            <input
+                                className="checkbox-radio" type="radio" name="opcao" value="Comprador"
+                                onChange={e=>setCargo("Comprador")}
+                            />
+                            <label className="label-radio">Comprador</label>
+                            <input
+                                className="checkbox-radio" type="radio" name="opcao" value="Vendedor"
+                                onChange={e=>setCargo("Vendedor")}
+                            />
+                            <label className="label-radio">Vendedor</label>
+                        </div>
+                        <div className="register-button-container">
+                            <Link to="/login">
+                                <div className="register-myButton">Login</div>
+                            </Link>
+                            <button className="register-myButton2" type="submit">Registar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

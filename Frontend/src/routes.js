@@ -1,8 +1,10 @@
 import React from 'react';
 import{BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import Login from './pages/Login'
-import Register from './pages/Register';
+//import LoginB from './pages/LoginB'
+import HomeDeslogado from './pages/HomeDeslogado';
+import Login from './pages/Login';                          // Oficial
+import Register from './pages/Register';                    // Oficial
 import Profile from './pages/Profile';
 import newIncident from './pages/NewIncident';
 
@@ -10,10 +12,11 @@ export default function Routes(){
     return(
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Login}/>
-                <Route path="/register" component={Register}/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/incidents/new" component={newIncident}/>
+                <Route path="/" exact component={HomeDeslogado}/> 
+                <Route path="/login" exact component={Login}/>
+                <Route path="/register" exact component={Register}/>
+                <Route path="/profile" exact component={Profile}/>
+                <Route path="/incidents/new" exact component={newIncident}/>
             </Switch>
         </BrowserRouter>
     );

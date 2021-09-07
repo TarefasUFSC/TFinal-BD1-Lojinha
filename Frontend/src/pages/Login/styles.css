@@ -1,32 +1,99 @@
-.logon-container{
-    width: 100%;
-    max-width:1120px;
-    height: 100vh;
-    margin: 0 auto;
+.login-container{
     display: flex;
+    margin-top: 15vh;
+    margin-left: 5vw;
     align-items: center;
     justify-content: space-between;
+    flex-direction: row;
+    background-color: white;
+    height: 70vh;
+    width: 90vw;
 }
 
-.logon-container section.form{
-    width: 100%;
-    max-width: 350px;
-    margin-right: 30px;
-}
-
-.logon-container section.form form{
-    margin-top: 100px;
-}
-
-.logon-container section.form form h1{
-    font-size: 32px;
-    margin-bottom: 32px;
-}
-
-/*.actionButtons{
-    width: 100%;
+.login-data-container{
     display: flex;
+    width: 45vw;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.logo-img{
+    border-radius: 50%;
+}
+
+.login-img-container{
+    display: flex;
+    width: 45vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-vertical{
+    height: 350px;
+    width: 30px;
+}
+
+.login-title-container{
+    font-size: 46px;
+}
+
+.login-button-container{
+    display:flex;
+    flex-direction: row;
     justify-content: space-between;
-    
-}*/
+    width: 250px;
+}
+
+.login-form-container{
+    padding: 50px;
+}
+
+.login-form-container form input{
+    margin-bottom: 5px;
+}
+
+.login-myButton{
+	background-color:#7892c2;
+	border-radius:8px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Hina Mincho;
+	font-size:20px;
+	padding:8px 30px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+    /*margin-right: 15px;*/
+}
+.login-myButton:hover{
+	background-color:#476e9e;
+}
+.login-myButton:active{
+	position:relative;
+	top:1px;
+}
+
+.login-myButton2 {
+	background-color:#ffffff;
+	border-radius:8px;
+	border:1px solid #859ee6;
+	display:inline-block;
+	cursor:pointer;
+	color:#5ab6e8;
+	font-family:Hina Mincho;
+	font-size:20px;
+	padding:8px 25px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #5ab6e8;
+}
+.login-myButton2:hover {
+	background-color:#d6d6d6;
+}
+.login-myButton2:active {
+	position:relative;
+	top:1px;
+}
+
+        
