@@ -5,6 +5,8 @@ const RegisterController = require('./controllers/User/RegisterController')
 const LoginController = require("./controllers/User/LoginController")
 const ComentarioController = require('./controllers/Produto/ComentarioController')
 const UserController = require("./controllers/User/UserController")
+const VendaController = require("./controllers/User/VendaController")
+
 
 const routes = express.Router()
 
@@ -46,6 +48,7 @@ userRouter.get("/compras/:id", UserController.getComprasByIdCliente)
 userRouter.post("/addsaldo/:id", UserController.addSaldo)
 userRouter.get('/extrato/:id', ExtratoClienteController.getAllExtByID)
 userRouter.get('/produtos/:id', UserController.listProdutosByIdFornecedor)
+userRouter.get('/vendas/:id', VendaController.getVendasById)
 
 
 
