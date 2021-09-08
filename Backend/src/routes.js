@@ -45,6 +45,7 @@ userRouter.get("/:id", UserController.detailsById)
 userRouter.get("/compras/:id", UserController.getComprasByIdCliente)
 userRouter.post("/addsaldo/:id", UserController.addSaldo)
 userRouter.get('/extrato/:id', ExtratoClienteController.getAllExtByID)
+userRouter.get('/produtos/:id', UserController.listProdutosByIdFornecedor)
 
 
 

@@ -106,7 +106,7 @@ module.exports = {
             compras.push(compra)
         }
 
-        return res.json({ "Compras": compras, })
+        return res.json({ "Compras": compras })
     },
     async addSaldo(req, res) {
         const { id } = req.params;
@@ -146,5 +146,26 @@ module.exports = {
             return res.status(500).json({ "Erro": "Erro ao atualizar Extrato" })
         }
         return res.json({ "Saldo": parseFloat(cli[0]["Saldo"]) + parseFloat(quantidade) })
+    },
+
+    async listProdutosByIdFornecedor(req, res) {
+        const { id } = req.params;
+        const prds = await connection("Produto").select("*").where("id_Fornecedor", id);
+        if (!prds.length) {
+            return res.status(404).json({ "Erro": "Nenhum produto encontrado com este id de fornecedor" });
+        }
+        let produtos = [];
+        for (j in prds) {
+            const cats = await connection("ProdutoCategoria")
+                .select("Categoria.*")
+                .leftJoin("Categoria", "ProdutoCategoria.id_Categoria", "Categoria.id_Categoria")
+                .where("ProdutoCategoria.id_Produto", prds[j]["id_Produto"])
+            const produto = {
+                "Detalhes": prds[j],
+                "Categorias": cats
+            }
+            produtos.push(produto)
+        }
+        return res.json({ "Produtos": produtos })
     }
 }
