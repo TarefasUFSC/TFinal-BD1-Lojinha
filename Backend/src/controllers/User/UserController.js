@@ -59,10 +59,38 @@ module.exports = {
 
 
 
-            return res.json({ "fornecedor": "a" })
 
         }
 
         return res.status(400).json({ "Erro": "Tipo de usuario invalido no cabeçalho" })
+    },
+    async getComprasByidCliente(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        if (parseInt(reqid) != parseInt(id || reqtype != "0")) {
+
+            return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
+        }
+        const comps = await connection("Compra").select("*").where("id_Cliente", id);
+
+        if (!comps.length) {
+
+            return res.status(404).json({ "Erro": "Nenhuma compra encontrada para este id" })
+        }
+        let compras = []
+        for (i in comps) {
+            console.log(comps[i]);
+            const prds = await connection("ProdutoCompra")
+                .select("Produto.*")
+                .leftJoin("Produto", "Produto.id_Produto", "ProdutoCompra.id_Produto")
+                .where("ProdutoCompra.id_Compra", comps[i]["id_Compra"])
+            let compra = {
+                "Detalhes": comps[i],
+                "Produtos": prds
+            }
+            compras.push(compra)
+        }
+
+        return res.json({ "Compras": compras, })
     }
 }

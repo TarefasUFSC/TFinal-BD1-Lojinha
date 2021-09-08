@@ -13,6 +13,11 @@ const routes = express.Router()
 // req.params
 // req.body
 
+/*
+    reqtyoe = 0: Cliente
+   reqtype = 1: Fornecedor
+    */
+
 /*Rotas de registro */
 const registerRouter = express.Router({ mergeParams: true })
 routes.use('/registro', registerRouter)
@@ -37,6 +42,7 @@ const userRouter = express.Router({ mergeParams: true })
 routes.use('/user', userRouter)
 userRouter.get('/lista/:id', UserController.getListaDeDesejo)
 userRouter.get("/:id", UserController.detailsById)
+userRouter.get("/compras/:id", UserController.getComprasByidCliente)
 
 
 
