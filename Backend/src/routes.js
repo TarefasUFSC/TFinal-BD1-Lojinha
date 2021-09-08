@@ -36,6 +36,11 @@ productsRouter.delete('/:id', ProdutoController.deleteProduto)
 const userRouter = express.Router({ mergeParams: true })
 routes.use('/user', userRouter)
 userRouter.get('/lista/:id', UserController.getListaDeDesejo)
+userRouter.get("/:id", UserController.detailsById)
 
+
+
+
+//isso aqui eu tenho que tirar depois...
 routes.get('/extrato/cliente', ExtratoClienteController.getAllExtByID) //isso aqui na real é /user/extrato/{id}
 module.exports = routes

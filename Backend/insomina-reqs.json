@@ -1,28 +1,40 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2021-09-07T17:50:06.394Z",
+    "__export_date": "2021-09-08T09:12:58.010Z",
     "__export_source": "insomnia.desktop.app:v2021.5.2",
     "resources": [
         {
-            "_id": "req_f7909c6c8efc4453b2e98aaa96e7228f",
+            "_id": "req_5f4d00f241c642f0b44c44625bf47fb6",
             "parentId": "fld_86feab9cb40c4f25944b9112cc652e54",
-            "modified": 1631036428666,
-            "created": 1631035272750,
-            "url": "localhost:3333/user/lista/1",
-            "name": "Lista",
+            "modified": 1631092261086,
+            "created": 1631091083066,
+            "url": "localhost:3333/user/1",
+            "name": "User Details",
             "description": "",
             "method": "GET",
             "body": {},
             "parameters": [],
             "headers": [
                 {
-                    "name": "idlista",
+                    "name": "cliente",
+                    "value": "0"
+                },
+                {
+                    "name": "fornecedor",
+                    "value": "1"
+                },
+                {
+                    "name": "reqid",
                     "value": "2"
+                },
+                {
+                    "name": "reqtype",
+                    "value": "0"
                 }
             ],
             "authentication": {},
-            "metaSortKey": -1631035272815,
+            "metaSortKey": -1631035272865,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
@@ -53,6 +65,34 @@
             "description": "",
             "scope": "collection",
             "_type": "workspace"
+        },
+        {
+            "_id": "req_f7909c6c8efc4453b2e98aaa96e7228f",
+            "parentId": "fld_86feab9cb40c4f25944b9112cc652e54",
+            "modified": 1631036428666,
+            "created": 1631035272750,
+            "url": "localhost:3333/user/lista/1",
+            "name": "Lista",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "idlista",
+                    "value": "2"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1631035272815,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
         },
         {
             "_id": "req_eb58fa77f1b1442496ab1df28877b565",
@@ -264,7 +304,7 @@
         {
             "_id": "req_94129bbe6846444f8be2e1e94d73e832",
             "parentId": "fld_f214da36d4254ba48437a05991426112",
-            "modified": 1630274480670,
+            "modified": 1631080227219,
             "created": 1630271656311,
             "url": "localhost:3333/login",
             "name": "Login",
@@ -272,7 +312,7 @@
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"email\": \"manu@gmail.com\",\n\t\"Senha\":\"123456\"\n}"
+                "text": "{\n\t\"email\": \"dda@email.com\",\n\t\"Senha\":\"111\"\n}"
             },
             "parameters": [],
             "headers": [

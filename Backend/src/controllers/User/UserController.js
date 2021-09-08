@@ -24,5 +24,45 @@ module.exports = {
 
 
         return res.status(404).json({ "Erro": "Cliente inexistente" });
+    },
+    async detailsById(req, res) {
+        const { id } = req.params;
+        const { cliente, fornecedor, reqid, reqtype } = req.headers;
+        console.log(["cliente", cliente]);
+        console.log(["fornecedor", fornecedor]);
+
+        if (cliente == "1" && fornecedor == "1") {
+
+            return res.status(400).json({ "Erro": "Parametros conflitantes no cabeçalho" })
+        }
+
+        if (cliente == "1") {
+            const cli = await connection("Cliente")
+                .select("id_Cliente", "Estado", "CEP", "Cidade", "Endereco", "Complemento", "Saldo", "ImagemPerfil", "Nome", "email")
+                .where("id_Cliente", id)
+            if (reqtype == "0" && id == reqid) {
+                return res.json({ "Cliente": cli })
+            } else {
+
+                return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
+            }
+
+        }
+        if (fornecedor == "1") {
+            const cli = await connection("Fornecedor")
+                .select("id_Fornecedor", "Estado", "CEP", "Cidade", "Endereco", "Saldo", "ImagemPerfil", "Nome", "Email", "Descricao")
+                .where("id_Fornecedor", id);
+            const cont = await connection("Contato").select("*").where("id_Fornecedor", id);
+
+            return res.json({ "Fornecedor": cli, "Contatos": cont })
+
+
+
+
+            return res.json({ "fornecedor": "a" })
+
+        }
+
+        return res.status(400).json({ "Erro": "Tipo de usuario invalido no cabeçalho" })
     }
 }
