@@ -25,7 +25,7 @@ module.exports = {
             categorias = categorias.split('+');
         }
         const prods = await connection("Produto")
-            .distinct('Nome').join('ProdutoCategoria', function () {
+            .distinct('Produto.*').join('ProdutoCategoria', function () {
                 this.on('ProdutoCategoria.id_Produto', '=', 'Produto.id_Produto')
             })
             .where('Nome', 'like', busca)

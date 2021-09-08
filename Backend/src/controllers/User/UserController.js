@@ -81,15 +81,27 @@ module.exports = {
 
             return res.status(404).json({ "Erro": "Nenhuma compra encontrada para este id" })
         }
-        let compras = []
+        let compras = [];
         for (i in comps) {
             const prds = await connection("ProdutoCompra")
                 .select("Produto.*")
                 .leftJoin("Produto", "Produto.id_Produto", "ProdutoCompra.id_Produto")
                 .where("ProdutoCompra.id_Compra", comps[i]["id_Compra"])
+            let produtos = [];
+            for (j in prds) {
+                const cats = await connection("ProdutoCategoria")
+                    .select("Categoria.*")
+                    .leftJoin("Categoria", "ProdutoCategoria.id_Categoria", "Categoria.id_Categoria")
+                    .where("ProdutoCategoria.id_Produto", prds[j]["id_Produto"])
+                const produto = {
+                    "Detalhes": prds[j],
+                    "Categorias": cats
+                }
+                produtos.push(produto)
+            }
             let compra = {
                 "Detalhes": comps[i],
-                "Produtos": prds
+                "Produtos": produtos
             }
             compras.push(compra)
         }
