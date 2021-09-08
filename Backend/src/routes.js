@@ -21,8 +21,8 @@ const routes = express.Router()
 /*Rotas de registro */
 const registerRouter = express.Router({ mergeParams: true })
 routes.use('/registro', registerRouter)
-registerRouter.post("/cliente", RegisterController.registroCliente)
-registerRouter.post("/fornecedor", RegisterController.registroFornecedor)
+registerRouter.put("/cliente", RegisterController.registroCliente)
+registerRouter.put("/fornecedor", RegisterController.registroFornecedor)
 
 /*Rotas de Login */
 routes.post("/login", LoginController.login)
@@ -32,7 +32,7 @@ const productsRouter = express.Router({ mergeParams: true })
 routes.use('/produto', productsRouter)
 productsRouter.get('/categoria', ProdutoController.getAllCategorias)
 productsRouter.get('/', ProdutoController.getAllProdutos)
-productsRouter.post('/comentario/:id', ComentarioController.newComentario)
+productsRouter.put('/comentario/:id', ComentarioController.newComentario)
 productsRouter.get('/comentario/:id', ComentarioController.getAllComentariosById)
 productsRouter.get('/:id', ProdutoController.details)
 productsRouter.delete('/:id', ProdutoController.deleteProduto)
@@ -42,7 +42,8 @@ const userRouter = express.Router({ mergeParams: true })
 routes.use('/user', userRouter)
 userRouter.get('/lista/:id', UserController.getListaDeDesejo)
 userRouter.get("/:id", UserController.detailsById)
-userRouter.get("/compras/:id", UserController.getComprasByidCliente)
+userRouter.get("/compras/:id", UserController.getComprasByIdCliente)
+userRouter.post("/addsaldo/:id", UserController.addSaldo)
 
 
 

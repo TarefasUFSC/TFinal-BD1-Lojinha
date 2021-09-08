@@ -64,7 +64,7 @@ module.exports = {
 
         return res.status(400).json({ "Erro": "Tipo de usuario invalido no cabeçalho" })
     },
-    async getComprasByidCliente(req, res) {
+    async getComprasByIdCliente(req, res) {
         const { id } = req.params;
         let { reqid, reqtype, quantidade } = req.headers;
         if (!quantidade) {
@@ -95,5 +95,44 @@ module.exports = {
         }
 
         return res.json({ "Compras": compras, })
+    },
+    async addSaldo(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        const { quantidade } = req.body;
+        if (!quantidade) {
+            return res.status(400).json({ "Erro": "Uma quantidade é necessária" })
+        }
+        if (parseFloat(quantidade) <= 0) {
+            return res.status(400).json({ "Erro": "Uma quantidade positiva e superior à 0 é necessária" })
+
+        }
+        if (parseInt(reqid) != parseInt(id || reqtype != "0")) {
+
+            return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
+        }
+        const cli = await connection("Cliente")
+            .select("Saldo")
+            .where("id_Cliente", id)
+        if (!cli.length) {
+            return res.status(404).json({ "Erro": "Cliente não encontrado" })
+        }
+        const ncli = await connection("Cliente")
+            .update("Saldo", String(
+                parseFloat(cli[0]["Saldo"]) + parseFloat(quantidade)
+            ))
+            .where("id_Cliente", id)
+        if (!ncli) {
+            return res.status(500).json({ "Erro": "Erro ao atualizar saldo" })
+        }
+        const ext = await connection("ExtratoCliente").insert({
+            "Data": parseInt(Date.now() / 1000),
+            "id_Cliente": id,
+            "Movimentacao": quantidade
+        })
+        if (!ext) {
+            return res.status(500).json({ "Erro": "Erro ao atualizar Extrato" })
+        }
+        return res.json({ "Saldo": parseFloat(cli[0]["Saldo"]) + parseFloat(quantidade) })
     }
 }
