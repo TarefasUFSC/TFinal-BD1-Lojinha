@@ -66,12 +66,16 @@ module.exports = {
     },
     async getComprasByidCliente(req, res) {
         const { id } = req.params;
-        const { reqid, reqtype } = req.headers;
+        let { reqid, reqtype, quantidade } = req.headers;
+        if (!quantidade) {
+            quantidade = 10;
+        }
         if (parseInt(reqid) != parseInt(id || reqtype != "0")) {
 
             return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
         }
-        const comps = await connection("Compra").select("*").where("id_Cliente", id);
+        const comps = await connection("Compra").select("*").where("id_Cliente", id)
+            .limit(parseInt(quantidade));
 
         if (!comps.length) {
 
@@ -79,7 +83,6 @@ module.exports = {
         }
         let compras = []
         for (i in comps) {
-            console.log(comps[i]);
             const prds = await connection("ProdutoCompra")
                 .select("Produto.*")
                 .leftJoin("Produto", "Produto.id_Produto", "ProdutoCompra.id_Produto")
