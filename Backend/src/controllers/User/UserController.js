@@ -150,16 +150,22 @@ module.exports = {
 
     async listProdutosByIdFornecedor(req, res) {
         const { id } = req.params;
-        const prds = await connection("Produto").select("*").where("id_Fornecedor", id);
+
+        let { quantidade } = req.headers;
+        if (!quantidade) {
+            quantidade = 20;
+        }
+        const prds = await connection("Produto").select("*").where("id_Fornecedor", id).limit(parseInt(quantidade));
         if (!prds.length) {
             return res.status(404).json({ "Erro": "Nenhum produto encontrado com este id de fornecedor" });
+
         }
         let produtos = [];
         for (j in prds) {
             const cats = await connection("ProdutoCategoria")
                 .select("Categoria.*")
                 .leftJoin("Categoria", "ProdutoCategoria.id_Categoria", "Categoria.id_Categoria")
-                .where("ProdutoCategoria.id_Produto", prds[j]["id_Produto"])
+                .where("ProdutoCategoria.id_Produto", prds[j]["id_Produto"]);
             const produto = {
                 "Detalhes": prds[j],
                 "Categorias": cats
