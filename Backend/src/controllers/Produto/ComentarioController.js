@@ -22,7 +22,7 @@ module.exports = {
         if (nota != "" || comentario != "") {
             if (nota != "") {
                 if (nota > 10 || nota < 0) {
-                    return res.json({ "Erro": "Nota Invalida" })
+                    return res.status(400).json({ "Erro": "Nota Invalida" })
                 }
             }
             const prd = await connection("Produto")
@@ -37,10 +37,10 @@ module.exports = {
                 });
                 return res.json({ "Comentario": op })
             } else {
-                return res.json({ "Erro": "Produto inexistente" })
+                return res.status(404).json({ "Erro": "Produto inexistente" })
             }
         }
 
-        return res.json({ "Erro": "Dados insuficientes" })
+        return res.status(400).json({ "Erro": "Dados insuficientes" })
     }
 };

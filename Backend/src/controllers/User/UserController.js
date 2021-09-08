@@ -16,13 +16,13 @@ module.exports = {
                 if (lista.length && prds.length) {
                     return res.json({ "Lista": lista, "Produtos": prds })
                 }
-                return res.json({ "Erro": "O cliente não possui lista com este id" });
+                return res.status(404).json({ "Erro": "O cliente não possui lista com este id" });
             }
             const listas = await connection("ListaDeDesejo").select("id_ListaDeDesejo", "nome").where("id_Cliente", id);
             return res.json({ "Listas": listas })
         }
 
 
-        return res.json({ "Erro": "Cliente inexistente" });
+        return res.status(404).json({ "Erro": "Cliente inexistente" });
     }
 }

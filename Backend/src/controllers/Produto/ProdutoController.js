@@ -78,11 +78,11 @@ module.exports = {
                 const op = await connection("Produto").where("id_produto", id).del();
                 return res.json({ "Response": "Deleção concluida" })
             } else {
-                return res.json({
+                return res.status(400).json({
                     "Erro": "Voce não pode fazer isso"
                 });
             }
         }
-        return res.json({ "Erro": "Produto não encontrado" })
+        return res.status(404).json({ "Erro": "Produto não encontrado" })
     }
 };
