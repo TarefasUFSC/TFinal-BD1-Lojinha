@@ -44,10 +44,9 @@ userRouter.get('/lista/:id', UserController.getListaDeDesejo)
 userRouter.get("/:id", UserController.detailsById)
 userRouter.get("/compras/:id", UserController.getComprasByIdCliente)
 userRouter.post("/addsaldo/:id", UserController.addSaldo)
+userRouter.get('/extrato/:id', ExtratoClienteController.getAllExtByID)
 
 
 
-
-//isso aqui eu tenho que tirar depois...
-routes.get('/extrato/cliente', ExtratoClienteController.getAllExtByID) //isso aqui na real é /user/extrato/{id}
+//isso aqui eu tenho que tirar depois... //isso aqui na real é /user/extrato/{id}
 module.exports = routes

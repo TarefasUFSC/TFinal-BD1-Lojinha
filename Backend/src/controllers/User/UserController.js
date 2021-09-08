@@ -70,7 +70,7 @@ module.exports = {
         if (!quantidade) {
             quantidade = 10;
         }
-        if (parseInt(reqid) != parseInt(id || reqtype != "0")) {
+        if (parseInt(reqid) != parseInt(id) || reqtype != "0") {
 
             return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
         }
@@ -107,7 +107,7 @@ module.exports = {
             return res.status(400).json({ "Erro": "Uma quantidade positiva e superior à 0 é necessária" })
 
         }
-        if (parseInt(reqid) != parseInt(id || reqtype != "0")) {
+        if (parseInt(reqid) != parseInt(id) || reqtype != "0") {
 
             return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
         }

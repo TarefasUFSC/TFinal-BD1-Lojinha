@@ -2,9 +2,28 @@
 const connection = require("../../database/connection");
 
 module.exports = {
-    async getAllExtByID(req,res){
-        const {id_cliente} = req.headers;
-        const ext = await connection("ExtratoCliente").select("*").where("id_Cliente",id_cliente);
-        return res.json({"response":ext})
+    async getAllExtByID(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        if (parseInt(reqid) != parseInt(id)) {
+
+            return res.status(400).json({ "Erro": "Você não tem autorização para ver isso" })
+        }
+        if (reqtype != "0" && reqtype != "1") {
+
+            return res.status(400).json({ "Erro": "Header incorreto" })
+        }
+        let ext;
+        if (reqtype == "0") {
+
+            ext = await connection("ExtratoCliente").select("*").where("id_Cliente", id);
+        } else {
+
+            ext = await connection("ExtratoFornecedor").select("*").where("id_Fornecedor", id);
+        }
+        if (!ext.length) {
+            return res.status(404).json({ "Erro": "Nenhum extrato encontrado" })
+        }
+        return res.json({ "Extrato": ext })
     }
 };
