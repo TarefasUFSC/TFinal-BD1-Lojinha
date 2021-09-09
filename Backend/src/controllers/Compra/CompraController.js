@@ -35,6 +35,7 @@ module.exports = {
 
         // Processa os produtos
         let atualizaVendedor = []
+        let atualizaProduto = []
         for (i in carrinho) {
 
             const prd = await connection("Produto").select("Valor", "id_Fornecedor", "Quantidade").where("id_Produto", carrinho[i]["id_Produto"])
@@ -50,9 +51,8 @@ module.exports = {
                     "id_Compra": compra[0],
                     "Quantidade": carrinho[i]["quantidade"]
                 })
-            const nPrd = await connection("Produto")
-                .update("Quantidade", parseInt(prd[0]["Quantidade"]) - parseInt(carrinho[i]["quantidade"]))
-                .where("id_Produto", carrinho[i]["id_Produto"])
+            atualizaProduto.push([parseInt(prd[0]["Quantidade"]) - parseInt(carrinho[i]["quantidade"]), carrinho[i]["id_Produto"]])
+
 
             atualizaVendedor.push([parseFloat(prd[0]["Valor"]) * parseInt(carrinho[i]["quantidade"]), prd[0]["id_Fornecedor"]])
 
@@ -85,6 +85,15 @@ module.exports = {
                 "Movimentacao": moviment
             })
         }
+        for (i in atualizaProduto) {
+            const quant = atualizaProduto[i][0]
+            const id_prod = atualizaProduto[i][1]
+
+            const nPrd = await connection("Produto")
+                .update("Quantidade", quant)
+                .where("id_Produto", id_prod)
+        }
+
         return res.json({ "Response": "Compra Realizada com Sucesso!" })
     }
 }
