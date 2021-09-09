@@ -50,6 +50,7 @@ userRouter.post("/addsaldo/:id", UserController.addSaldo)
 userRouter.get('/extrato/:id', ExtratoClienteController.getAllExtByID)
 userRouter.get('/produtos/:id', UserController.listProdutosByIdFornecedor)
 userRouter.get('/vendas/:id', VendaController.getVendasById)
+userRouter.put('/lista', UserController.newLista)
 
 /*Rotas de Compra */
 const compraRouter = express.Router({ mergeParams: true })

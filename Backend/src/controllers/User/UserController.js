@@ -173,5 +173,21 @@ module.exports = {
             produtos.push(produto)
         }
         return res.json({ "Produtos": produtos })
+    },
+    async newLista(req, res) {
+        const { reqid, reqtype } = req.headers;
+        const { nome_lista } = req.body;
+
+        if (reqtype != "0") {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const nlista = await connection("ListaDeDesejo").insert({
+            "id_Cliente": reqid,
+            "nome": nome_lista
+        })
+        if (!nlista.length) {
+            return res.status(500).json({ "Erro": "Erro ao adicionar a lista" })
+        }
+        return res.json({ "id": nlista[0] })
     }
 }
