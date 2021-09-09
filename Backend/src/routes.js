@@ -1,11 +1,12 @@
 const express = require("express")
 const ExtratoClienteController = require("./controllers/User/ExtratoClienteController")
 const ProdutoController = require("./controllers/Produto/ProdutoController")
-const RegisterController = require('./controllers/User/RegisterController')
-const LoginController = require("./controllers/User/LoginController")
 const ComentarioController = require('./controllers/Produto/ComentarioController')
 const UserController = require("./controllers/User/UserController")
 const VendaController = require("./controllers/User/VendaController")
+const LoginController = require("./controllers/Login/LoginController")
+const RegisterController = require("./controllers/Registro/RegisterController")
+const CompraController = require("./controllers/Compra/CompraController")
 
 
 const routes = express.Router()
@@ -49,6 +50,11 @@ userRouter.post("/addsaldo/:id", UserController.addSaldo)
 userRouter.get('/extrato/:id', ExtratoClienteController.getAllExtByID)
 userRouter.get('/produtos/:id', UserController.listProdutosByIdFornecedor)
 userRouter.get('/vendas/:id', VendaController.getVendasById)
+
+/*Rotas de Compra */
+const compraRouter = express.Router({ mergeParams: true })
+routes.use('/compra', compraRouter)
+compraRouter.put('/new', CompraController.newCompra)
 
 
 
