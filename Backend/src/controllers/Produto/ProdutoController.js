@@ -106,5 +106,39 @@ module.exports = {
             }
         }
         return res.status(404).json({ "Erro": "Produto não encontrado" })
+    },
+    async updateProduto(req, res) {
+        const { id } = req.params;
+        const id_Produto = id;
+        const { reqid, reqtype } = req.headers;
+        const { nome, preco, descricao, quantidade, imagem } = req.body;
+
+        if (reqtype != "1") {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const forn = await connection("Fornecedor").select("*").where("id_Fornecedor", reqid);
+        if (!forn.length) {
+            return res.status(400).json({ "Erro": "Codigo de fornecedor invalido" })
+        }
+        const prd = await connection("Produto").select("*").where("id_Produto", id_Produto);
+        if (!prd.length) {
+            return res.status(400).json({ "Erro": "Codigo de fornecedor invalido" })
+        }
+        if (parseInt(prd[0]["id_Fornecedor"]) != parseInt(reqid)) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const nprd = await connection("Produto")
+            .update("id_Fornecedor", reqid)
+            .update("Imagem", imagem)
+            .update("Valor", preco)
+            .update("Quantidade", quantidade)
+            .update("Descricao", descricao)
+            .update("Nome", nome)
+            .where("id_Produto", id_Produto)
+
+        if (!prd.length) {
+            return res.status(500).json({ "Erro": "Erro ao adicionar produto" })
+        }
+        return res.json({ "response": "Produto alterado com sucesso" })
     }
 };
