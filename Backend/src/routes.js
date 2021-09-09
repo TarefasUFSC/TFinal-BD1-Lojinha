@@ -51,6 +51,7 @@ userRouter.get('/extrato/:id', ExtratoClienteController.getAllExtByID)
 userRouter.get('/produtos/:id', UserController.listProdutosByIdFornecedor)
 userRouter.get('/vendas/:id', VendaController.getVendasById)
 userRouter.put('/lista', UserController.newLista)
+userRouter.put('/lista/:id', UserController.newListaItem)
 
 /*Rotas de Compra */
 const compraRouter = express.Router({ mergeParams: true })

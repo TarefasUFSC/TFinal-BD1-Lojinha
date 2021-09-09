@@ -3,20 +3,25 @@ const connection = require("../../database/connection");
 module.exports = {
     async getListaDeDesejo(req, res) {
         const { id } = req.params;
-        const { idlista } = req.headers;
+        const { idlista, reqid, reqtype } = req.headers;
+
+        if (reqtype != "0") {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
 
         const usr = await connection("Cliente").select("id_Cliente").where("id_Cliente", id)
         if (usr.length) {
             if (idlista) {
 
-                const lista = await connection("ListaDeDesejo").select("id_ListaDeDesejo", "nome").where("id_ListaDeDesejo", idlista);
+                const lista = await connection("ListaDeDesejo").select("*").where("id_ListaDeDesejo", idlista).where("id_Cliente", id)
+                if (!lista.length) {
+                    return res.status(404).json({ "Erro": "Lista não encontrada" })
+                }
                 const prds = await connection("ProdutoListaDeDesejo").select("Produto.*")
                     .leftJoin("Produto", "Produto.id_Produto", "ProdutoListaDeDesejo.id_Produto")
                     .where("ProdutoListaDeDesejo.id_ListaDeDesejo", idlista);
-                if (lista.length && prds.length) {
-                    return res.json({ "Lista": lista, "Produtos": prds })
-                }
-                return res.status(404).json({ "Erro": "O cliente não possui lista com este id" });
+
+                return res.json({ "Lista": lista, "Produtos": prds })
             }
             const listas = await connection("ListaDeDesejo").select("id_ListaDeDesejo", "nome").where("id_Cliente", id);
             return res.json({ "Listas": listas })
@@ -175,12 +180,13 @@ module.exports = {
         return res.json({ "Produtos": produtos })
     },
     async newLista(req, res) {
-        const { reqid, reqtype } = req.headers;
         const { nome_lista } = req.body;
+        const { reqid, reqtype } = req.headers;
 
         if (reqtype != "0") {
             return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
         }
+
         const nlista = await connection("ListaDeDesejo").insert({
             "id_Cliente": reqid,
             "nome": nome_lista
@@ -189,5 +195,31 @@ module.exports = {
             return res.status(500).json({ "Erro": "Erro ao adicionar a lista" })
         }
         return res.json({ "id": nlista[0] })
+    },
+    async newListaItem(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        const { id_Lista, id_Produto } = req.body;
+
+        if (reqtype != "0" || parseInt(id) != parseInt(reqid)) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const lista = await connection("ListaDeDesejo").select("*").where("id_ListaDeDesejo", id_Lista).where("id_Cliente", reqid)
+        if (!lista.length) {
+            return res.status(404).json({ "Erro": "Lista não encontrada" })
+        }
+        const plista = await connection("ProdutoListaDeDesejo").select("*").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista)
+        console.log(plista);
+        if (plista.length) {
+            return res.status(400).json({ "Erro": "Lista ja contem este item" })
+        }
+        const nlista = await connection("ProdutoListaDeDesejo").insert({
+            "id_ListaDeDesejo": id_Lista,
+            "id_Produto": id_Produto
+        })
+        if (!nlista.length) {
+            return res.status(500).json({ "Erro": "Erro ao adicionar na lista" })
+        }
+        return res.json({ "response": "Produto Adicionado com sucesso!" })
     }
 }
