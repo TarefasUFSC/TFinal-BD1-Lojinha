@@ -28,7 +28,7 @@ module.exports = {
         resp = await loginCliente(email);
         if (resp != "Email não encontrado") {
             if (String(Senha) === String(resp['Senha'])) {
-                retorno = { "id": resp.id_Cliente, "tipo": "Cliente" };
+                retorno = { "id": resp.id_Cliente, "tipo": "0" };
 
                 return res.json({ "response": retorno })
             }
@@ -42,7 +42,7 @@ module.exports = {
             if (resp != "Email não encontrado") {
 
                 if (String(Senha) === String(resp['Senha'])) {
-                    retorno = { "id": resp.id_Fornecedor, "tipo": "Fornecedor" };
+                    retorno = { "id": resp.id_Fornecedor, "tipo": "1" };
 
                     return res.json({ "response": retorno });
                 }

@@ -57,6 +57,7 @@ module.exports = {
             atualizaVendedor.push([parseFloat(prd[0]["Valor"]) * parseInt(carrinho[i]["quantidade"]), prd[0]["id_Fornecedor"]])
 
         }
+        //atualiza o saldo do cliente
         const newSaldo = await connection("Cliente")
             .update("Saldo", String(
                 parseFloat(userSaldo[0]["Saldo"]) - parseFloat(total)
@@ -73,6 +74,8 @@ module.exports = {
         if (!ext.length) {
             return res.status(400).json({ "Erro": "Erro ao atualizar o extrato" })
         }
+
+        // atualiza o saldo dos vendedores
         for (i in atualizaVendedor) {
             const moviment = atualizaVendedor[i][0]
             const id_forn = atualizaVendedor[i][1]
@@ -85,6 +88,8 @@ module.exports = {
                 "Movimentacao": moviment
             })
         }
+
+        // atualiza as quantidades dos produtos
         for (i in atualizaProduto) {
             const quant = atualizaProduto[i][0]
             const id_prod = atualizaProduto[i][1]
