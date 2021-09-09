@@ -52,6 +52,7 @@ userRouter.get('/produtos/:id', UserController.listProdutosByIdFornecedor)
 userRouter.get('/vendas/:id', VendaController.getVendasById)
 userRouter.put('/lista', UserController.newLista)
 userRouter.put('/lista/:id', UserController.newListaItem)
+userRouter.delete('/lista/:id', UserController.removeListaItem)
 
 /*Rotas de Compra */
 const compraRouter = express.Router({ mergeParams: true })

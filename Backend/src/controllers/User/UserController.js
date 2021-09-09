@@ -221,5 +221,29 @@ module.exports = {
             return res.status(500).json({ "Erro": "Erro ao adicionar na lista" })
         }
         return res.json({ "response": "Produto Adicionado com sucesso!" })
+    },
+    async removeListaItem(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        const { id_Lista, id_Produto } = req.body;
+
+        if (reqtype != "0" || parseInt(id) != parseInt(reqid)) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const lista = await connection("ListaDeDesejo").select("*").where("id_ListaDeDesejo", id_Lista).where("id_Cliente", reqid)
+        if (!lista.length) {
+            return res.status(404).json({ "Erro": "Lista não encontrada" })
+        }
+        const plista = await connection("ProdutoListaDeDesejo").select("*").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista)
+        console.log(plista);
+        if (!plista.length) {
+            return res.status(400).json({ "Erro": "Lista não contem este item" })
+        }
+        const nlista = await connection("ProdutoListaDeDesejo").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista).del();
+        console.log(nlista);
+        if (nlista != 1) {
+            return res.status(500).json({ "Erro": "Erro ao remover da lista" })
+        }
+        return res.json({ "response": "Produto removido com sucesso!" })
     }
 }
