@@ -234,16 +234,29 @@ module.exports = {
         if (!lista.length) {
             return res.status(404).json({ "Erro": "Lista não encontrada" })
         }
-        const plista = await connection("ProdutoListaDeDesejo").select("*").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista)
-        console.log(plista);
-        if (!plista.length) {
-            return res.status(400).json({ "Erro": "Lista não contem este item" })
+        if (id_Produto) {
+            const plista = await connection("ProdutoListaDeDesejo").select("*").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista)
+            console.log(plista);
+            if (!plista.length) {
+                return res.status(400).json({ "Erro": "Lista não contem este item" })
+            }
+            const nlista = await connection("ProdutoListaDeDesejo").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista).del();
+            console.log(nlista);
+            if (nlista != 1) {
+                return res.status(500).json({ "Erro": "Erro ao remover da lista" })
+            }
+            return res.json({ "response": "Produto removido com sucesso!" })
         }
-        const nlista = await connection("ProdutoListaDeDesejo").where("id_Produto", id_Produto).where("id_ListaDeDesejo", id_Lista).del();
-        console.log(nlista);
-        if (nlista != 1) {
-            return res.status(500).json({ "Erro": "Erro ao remover da lista" })
+        else {
+            const nlista = await connection("ProdutoListaDeDesejo").where("id_ListaDeDesejo", id_Lista).del();
+            console.log(nlista);
+            if (!nlista) {
+                return res.status(500).json({ "Erro": "Erro ao remover da lista" })
+            }
+
+            const dlista = await connection("ListaDeDesejo").select("*").where("id_ListaDeDesejo", id_Lista).where("id_Cliente", reqid).del();
+            return res.json({ "response": "Lista removida com sucesso!" })
         }
-        return res.json({ "response": "Produto removido com sucesso!" })
+
     }
 }
