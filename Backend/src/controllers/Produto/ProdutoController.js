@@ -64,7 +64,29 @@ module.exports = {
         }
     },
     async newProduto(req, res) {
-        return res.json({ "id": "oi" })
+        const { reqid, reqtype } = req.headers;
+        const { nome, preco, descricao, quantidade, imagem } = req.body;
+
+        if (reqtype != "1") {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const forn = await connection("Fornecedor").select("*").where("id_Fornecedor", reqid);
+        if (!forn.length) {
+            return res.status(400).json({ "Erro": "Codigo de fornecedor invalido" })
+        }
+        const prd = await connection("Produto").insert({
+            "id_Fornecedor": reqid,
+            "Imagem": imagem,
+            "Valor": preco,
+            "Quantidade": quantidade,
+            "Descricao": descricao,
+            "Nome": nome
+        })
+        console.log(prd);
+        if (!prd.length) {
+            return res.status(500).json({ "Erro": "Erro ao adicionar produto" })
+        }
+        return res.json({ "id": prd[0] })
     },
     async deleteProduto(req, res) {
         // ele não deleta as referencias a ele quando exclui, então fica as fk apontando pro nada.... tem que ver isso ai

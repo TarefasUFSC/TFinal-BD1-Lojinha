@@ -39,6 +39,7 @@ productsRouter.put('/comentario/:id', ComentarioController.newComentario)
 productsRouter.get('/comentario/:id', ComentarioController.getAllComentariosById)
 productsRouter.get('/:id', ProdutoController.details)
 productsRouter.delete('/:id', ProdutoController.deleteProduto)
+productsRouter.put('/new', ProdutoController.newProduto)
 
 /*Rotas de Usuario */
 const userRouter = express.Router({ mergeParams: true })
