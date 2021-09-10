@@ -277,5 +277,24 @@ module.exports = {
             "nm_rede_social": nm_rede_social
         })
         return res.json({ "id_Contato": ctt[0] })
+    },
+    async removeContato(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+
+        const ctt = await connection("Contato").select("id_Fornecedor").where("id_Contato", id);
+        if (!ctt.length) {
+            return res.status(404).json({ "Erro": "Contato não encontrado" });
+        }
+        const frn = await connection("Fornecedor").select("id_Fornecedor").where("id_Fornecedor", ctt[0]["id_Fornecedor"]);
+        if (!frn.length) {
+            return res.status(404).json({ "Erro": "Fornecedor não encontrado" });
+        }
+        if (reqtype != "1" || parseInt(reqid) != parseInt(ctt[0]["id_Fornecedor"])) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const dctt = await connection("Contato").where("id_Contato", id).del();
+
+        return res.json({ "response": "Contato deletado com sucesso." })
     }
 }
