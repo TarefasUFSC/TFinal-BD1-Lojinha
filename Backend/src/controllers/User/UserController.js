@@ -258,5 +258,24 @@ module.exports = {
             return res.json({ "response": "Lista removida com sucesso!" })
         }
 
+    },
+    async addContato(req, res) {
+
+        const { reqid, reqtype } = req.headers;
+        const { id_Fornecedor, contato, nm_rede_social } = req.body;
+
+        if (reqtype != "1" || parseInt(reqid) != parseInt(id_Fornecedor)) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const frn = await connection("Fornecedor").select("id_Fornecedor").where("id_Fornecedor", id_Fornecedor);
+        if (!frn.length) {
+            return res.status(404).json({ "Erro": "Fornecedor não encontrado" });
+        }
+        const ctt = await connection("Contato").insert({
+            "id_Fornecedor": id_Fornecedor,
+            "Contato": contato,
+            "nm_rede_social": nm_rede_social
+        })
+        return res.json({ "id_Contato": ctt[0] })
     }
 }
