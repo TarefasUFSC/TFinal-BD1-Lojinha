@@ -296,5 +296,69 @@ module.exports = {
         const dctt = await connection("Contato").where("id_Contato", id).del();
 
         return res.json({ "response": "Contato deletado com sucesso." })
+    },
+    async atualizaCliente(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        const { Estado,
+            CEP,
+            Cidade,
+            Endereco,
+            Complemento,
+            ImagemPerfil,
+            Senha,
+            Nome,
+            email } = req.body;
+        if (reqtype != "0" || parseInt(reqid) != parseInt(id)) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const cli = await connection("Cliente").select("id_Cliente").where("id_Cliente", id);
+        if (!cli.length) {
+            return res.status(404).json({ "Erro": "Cliente não encontrado" });
+        }
+        const ncli = await connection("Cliente")
+            .update("Estado", Estado)
+            .update("CEP", CEP)
+            .update("Cidade", Cidade)
+            .update("Endereco", Endereco)
+            .update("Complemento", Complemento)
+            .update("ImagemPerfil", ImagemPerfil)
+            .update("Senha", Senha)
+            .update("Nome", Nome)
+            .update("email", email)
+            .where("id_Cliente", id)
+        return res.json({ "response": "Cliente alterado com sucesso" })
+    },
+    async atualizaFornecedor(req, res) {
+        const { id } = req.params;
+        const { reqid, reqtype } = req.headers;
+        const { Estado,
+            CEP,
+            Cidade,
+            Endereco,
+            ImagemPerfil,
+            Senha,
+            Nome,
+            email,
+            descricao } = req.body;
+        if (reqtype != "1" || parseInt(reqid) != parseInt(id)) {
+            return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
+        }
+        const frn = await connection("Fornecedor").select("id_Fornecedor").where("id_Fornecedor", id);
+        if (!frn.length) {
+            return res.status(404).json({ "Erro": "Fornecedor não encontrado" });
+        }
+        const nfrn = await connection("Fornecedor")
+            .update("Estado", Estado)
+            .update("CEP", CEP)
+            .update("Cidade", Cidade)
+            .update("Endereco", Endereco)
+            .update("ImagemPerfil", ImagemPerfil)
+            .update("Senha", Senha)
+            .update("Nome", Nome)
+            .update("email", email)
+            .update("Descricao", descricao)
+            .where("id_Fornecedor", id)
+        return res.json({ "response": "Fornecedor alterado com sucesso" })
     }
 }
