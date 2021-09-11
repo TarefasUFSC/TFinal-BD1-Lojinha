@@ -81,10 +81,8 @@ export default function Profile(){
         var reader = new FileReader();
         var url = reader.readAsDataURL(file);
         reader.onloadend = function (event) {
-            console.log(reader.result.split(","));
             setImg(reader.result.split(",")[1]);
           }.bind(this);
-        console.log(url)
         } catch (err){}
     }
 

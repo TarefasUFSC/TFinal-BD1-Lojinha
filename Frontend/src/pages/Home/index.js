@@ -59,7 +59,6 @@ export default function Home() {
 
   function handleClickProduto(id){
     history.push('produto/'+String(id));
-    alert(id);
   }
 
   return (

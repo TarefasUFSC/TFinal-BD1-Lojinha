@@ -20,13 +20,12 @@ export default function Login(){
             Senha
         }
         try{
-            const response = await api.post('/login', data)
-            localStorage.setItem('reqtype', response.data.response.tipo)
-            localStorage.setItem('reqid', response.data.response.id)
-            history.push('/')
-            alert(`${email} efetou o login`)
+            const response = await api.post('/login', data);
+            localStorage.setItem('reqtype', response.data.response.tipo);
+            localStorage.setItem('reqid', response.data.response.id);
+            history.push('/');
         }catch (err){
-            alert(`Deu ruim`)
+            alert(err.response.data.Erro);
         }
     }
 
