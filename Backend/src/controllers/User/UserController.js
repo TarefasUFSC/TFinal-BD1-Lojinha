@@ -163,7 +163,11 @@ module.exports = {
         if (!quantidade) {
             quantidade = 20;
         }
-        const prds = await connection("Produto").select("*").where("id_Fornecedor", id).limit(parseInt(quantidade));
+        const prds = await connection("Produto")
+            .select("Produto.*")
+            .avg("Comentario.Nota as media")
+            .leftJoin("Comentario", "Comentario.id_Produto", "Produto.id_Produto").where("id_Fornecedor", id).limit(parseInt(quantidade))
+            .groupBy("Produto.id_Produto");
         if (!prds.length) {
             return res.status(404).json({ "Erro": "Nenhum produto encontrado com este id de fornecedor" });
 
