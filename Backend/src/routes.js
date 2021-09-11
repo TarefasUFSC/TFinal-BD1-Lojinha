@@ -45,6 +45,8 @@ productsRouter.post('/:id', ProdutoController.updateProduto)
 /*Rotas de Usuario */
 const userRouter = express.Router({ mergeParams: true })
 routes.use('/user', userRouter)
+
+routes.get('/fornecedores', UserController.listFornecedores)
 userRouter.get('/lista/:id', UserController.getListaDeDesejo)
 userRouter.get("/:id", UserController.detailsById)
 userRouter.get("/compras/:id", UserController.getComprasByIdCliente)

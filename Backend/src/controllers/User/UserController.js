@@ -367,5 +367,9 @@ module.exports = {
             .update("Descricao", descricao)
             .where("id_Fornecedor", id)
         return res.json({ "response": "Fornecedor alterado com sucesso" })
+    },
+    async listFornecedores(req, res) {
+        const forns = await connection("Fornecedor").select("Nome", "id_Fornecedor");
+        return res.json({ "Fornecedores": forns })
     }
 }
