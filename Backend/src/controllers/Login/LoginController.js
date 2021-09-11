@@ -35,7 +35,7 @@ module.exports = {
             else {
                 retorno = "Senha Incorreta"
 
-                return res.status(400).json({ "response": retorno });
+                return res.status(400).json({ "Erro": retorno });
             }
         } else {
             resp = await loginFornecedor(email)
@@ -48,7 +48,7 @@ module.exports = {
                 }
                 else {
                     retorno = "Senha Incorreta"
-                    return res.status(400).json({ "response": retorno });
+                    return res.status(400).json({ "Erro": retorno });
                 }
             } else {
                 retorno = resp;

@@ -27,13 +27,13 @@ module.exports = {
                 return res.json({ "response": { "id": id } })
             }
             else {
-                return res.status(400).json({ "response": "Email ja cadastrado como Fornecedor" })
+                return res.status(400).json({ "Erro": "Email ja cadastrado como Fornecedor" })
             }
 
         }
         else {
             console.log("Tchau");
-            return res.status(400).json({ "response": "Email ja cadastrado como Cliente" })
+            return res.status(400).json({ "Erro": "Email ja cadastrado como Cliente" })
         }
 
     },
