@@ -53,7 +53,7 @@ module.exports = {
             } else {
                 retorno = resp;
 
-                return res.status(404).json({ "response": retorno });
+                return res.status(404).json({ "Erro": retorno });
             }
         }
 
