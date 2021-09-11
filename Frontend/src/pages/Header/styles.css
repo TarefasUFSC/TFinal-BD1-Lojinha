@@ -1,6 +1,6 @@
 .header-container {
   height: 70px;
-  width: 1349px;
+  width: 1350px;
   background-color: #b2acfa;
   display: flex;
   align-items: center;
@@ -61,7 +61,9 @@
 
 .header-user-data {
   margin-top: 8px;
-  width: 50px;
-  height: auto;
+  width: auto;
+  height: 50px;
   border-radius: 50%;
+  max-width: 50px;
+  overflow-x: hidden;
 }

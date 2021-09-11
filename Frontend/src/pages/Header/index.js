@@ -52,7 +52,7 @@ export default function Header() {
             <b>Carrinho</b>
           </div>
         </Link>
-        {userData ? (
+        {userData&&userId ? (
           <Link to="/profile">
             <div className="header-img-container">
               <img

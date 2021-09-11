@@ -6,13 +6,15 @@ import './styles.css';
 import logoImg from '../../assets/logo.png';
 
 
-export default function newIncident(){
+export default function newIncident(props){
+    const id = props.match.params.id;
+    console.log(props);
     return(
     <div className="new-incident-container">
         <div className="content">
             <section>
                 <img src={logoImg} alt="Logo"/>
-                <h1>Cadastrar Novo Caso</h1>
+                <h1>Hallo {id}</h1>
                 <p>Descreva o caso e blablabla</p>
                 <Link className="back-link" to="/profile">
                     <FiArrowLeft size={16} color="#e02041"/>
