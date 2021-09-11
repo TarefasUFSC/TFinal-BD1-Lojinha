@@ -57,6 +57,21 @@ exports.seed = function(knex) {
         {id_Compra:23,id_Produto:11,Quantidade:1},
         
         {id_Compra:24,id_Produto:10,Quantidade:2},
+
+        {id_Compra:25,id_Produto:5,Quantidade:1},
+        {id_Compra:26,id_Produto:7,Quantidade:1},
+        
+        {id_Compra:27,id_Produto:10,Quantidade:2},
+
+        {id_Compra:28,id_Produto:11,Quantidade:2},
+        
+        {id_Compra:29,id_Produto:9,Quantidade:2},
+        
+        {id_Compra:30,id_Produto:10,Quantidade:1},
+        {id_Compra:31,id_Produto:2,Quantidade:2},
+        
+        {id_Compra:32,id_Produto:3,Quantidade:4},
+        {id_Compra:33,id_Produto:6,Quantidade:1},
       ]);
     });
 };

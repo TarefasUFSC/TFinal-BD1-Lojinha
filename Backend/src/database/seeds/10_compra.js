@@ -34,6 +34,13 @@ exports.seed = function(knex) {
         {Data:parseInt(new Date(2021,05,15).getTime()/1000),id_Cliente:6,ValorFinal:270}, //Bermuda de praia Mulher GG e Camisa Roxa Feminina x2
         {Data:parseInt(new Date(2021,06,23).getTime()/1000),id_Cliente:6,ValorFinal:234}, //Smart watch
         {Data:parseInt(new Date(2021,07,19).getTime()/1000),id_Cliente:6,ValorFinal:666}, //Calça Jeans Feminina x2
+
+        {Data:parseInt(new Date(2021,09,01).getTime()/1000),id_Cliente:1,ValorFinal:432.99}, //Sapatenis Brega e Bermuda de praia Homem
+        {Data:parseInt(new Date(2021,09,03).getTime()/1000),id_Cliente:2,ValorFinal:666}, //Calça Jeans Feminina x2
+        {Data:parseInt(new Date(2021,09,05).getTime()/1000),id_Cliente:3,ValorFinal:468}, //Smart watch x2
+        {Data:parseInt(new Date(2021,09,07).getTime()/1000),id_Cliente:4,ValorFinal:1332}, //Calça masculina x2
+        {Data:parseInt(new Date(2021,09,09).getTime()/1000),id_Cliente:5,ValorFinal:533}, //Calça Jeans Feminina e Roupa de Grife masculina x2
+        {Data:parseInt(new Date(2021,09,11).getTime()/1000),id_Cliente:6,ValorFinal:158}, //Skin de LoL x4 e Bota de combate Inca
       ]);
     });
 };

@@ -38,6 +38,14 @@ exports.seed = function(knex) {
         {Data:parseInt(new Date(2021,05,15).getTime()/1000),id_Fornecedor:2,Movimentacao:120}, //Camisa Roxa Feminina x2
         {Data:parseInt(new Date(2021,06,23).getTime()/1000),id_Fornecedor:1,Movimentacao:234}, //Smart watch
         {Data:parseInt(new Date(2021,07,19).getTime()/1000),id_Fornecedor:3,Movimentacao:666}, //Calça Jeans Feminina x2
+
+        {Data:parseInt(new Date(2021,09,01).getTime()/1000),id_Fornecedor:3,Movimentacao:432.99}, //Sapatenis Brega e Bermuda de praia Homem
+        {Data:parseInt(new Date(2021,09,03).getTime()/1000),id_Fornecedor:3,Movimentacao:666}, //Calça Jeans Feminina x2
+        {Data:parseInt(new Date(2021,09,05).getTime()/1000),id_Fornecedor:1,Movimentacao:468}, //Smart watch x2
+        {Data:parseInt(new Date(2021,09,07).getTime()/1000),id_Fornecedor:1,Movimentacao:1332}, //Calça masculina x2
+        {Data:parseInt(new Date(2021,09,09).getTime()/1000),id_Fornecedor:3,Movimentacao:333}, //Calça Jeans Feminina
+        {Data:parseInt(new Date(2021,09,09).getTime()/1000),id_Fornecedor:2,Movimentacao:200}, //Roupa de Grife masculina x2
+        {Data:parseInt(new Date(2021,09,11).getTime()/1000),id_Fornecedor:2,Movimentacao:158}, //Skin de LoL x4 e Bota de combate Inca
       ]);
     });
 };
