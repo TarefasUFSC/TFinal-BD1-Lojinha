@@ -1,0 +1,67 @@
+.header-container {
+  height: 70px;
+  width: 1349px;
+  background-color: #b2acfa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  font-family: Hina Mincho;
+  margin-left: 24px;
+}
+
+.header-title {
+  font: Hina Mincho;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-top: 8px;
+}
+
+.header-img-logo {
+  border-radius: 50%;
+  height: 50px;
+  width: auto;
+}
+
+.header-links-container {
+  margin-right: 50px;
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  font-family: Hina Mincho;
+}
+
+.header-carrinhoButton {
+  background-color: #b2acfa;
+  border-radius: 28px;
+  border: 1px solid #b2acfa;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Hina Mincho;
+  font-size: 20px;
+  padding: 16px 31px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #b2acfa;
+}
+
+.header-carrinhoButton:hover {
+  background-color: #b2acfa;
+}
+
+.header-carrinhoButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.header-user-data {
+  margin-top: 8px;
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+}

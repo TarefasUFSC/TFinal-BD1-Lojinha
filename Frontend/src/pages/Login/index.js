@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api'
 
 import './styles.css';
@@ -9,19 +9,22 @@ import vertical from '../../assets/vertical.png';
 
 export default function Login(){
     const[email, setEmail] = useState('');
-    const[senha, setSenha] = useState('');
-
+    const[Senha, setSenha] = useState('');
+    const history = useHistory();
 
     async function handleLogin(e){
         e.preventDefault();
 
         const data = {
             email,
-            senha
+            Senha
         }
         try{
-            console.log(await api.post('/login', data))
-            alert(`Login efetuado com sucesso`)
+            const response = await api.post('/login', data)
+            localStorage.setItem('reqtype', response.data.response.tipo)
+            localStorage.setItem('reqid', response.data.response.id)
+            history.push('/')
+            alert(`${email} efetou o login`)
         }catch (err){
             alert(`Deu ruim`)
         }
@@ -48,7 +51,7 @@ export default function Login(){
                         />
                         <input
                             type="password" placeholder="Senha"
-                            value = {senha} 
+                            value = {Senha} 
                             onChange = {e=>setSenha(e.target.value)}
                         />
                         <div className="login-button-container">
