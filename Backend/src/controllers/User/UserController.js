@@ -90,7 +90,9 @@ module.exports = {
         for (i in comps) {
             const prds = await connection("ProdutoCompra")
                 .select("Produto.*")
+                .select("Fornecedor.Nome")
                 .leftJoin("Produto", "Produto.id_Produto", "ProdutoCompra.id_Produto")
+                .leftJoin("Fornecedor", "Produto.id_Fornecedor", "Fornecedor.id_Fornecedor")
                 .where("ProdutoCompra.id_Compra", comps[i]["id_Compra"])
             let produtos = [];
             for (j in prds) {
