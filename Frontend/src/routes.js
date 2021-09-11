@@ -9,10 +9,6 @@ import Profile from './pages/Profile';
 import newIncident from './pages/NewIncident';
 
 export default function Routes(){
-    /*const id = localStorage.getItem('reqid');
-    let path = {};
-    if(id === ''||id === undefined) path = {HomeDeslogado};
-    else path = {HomeLogado};*/
     return(
         <BrowserRouter>
             <Switch>
@@ -21,6 +17,7 @@ export default function Routes(){
                 <Route path="/register" exact component={Register}/>
                 <Route path="/profile" exact component={Profile}/>
                 <Route path="/incidents/new" exact component={newIncident}/>
+                <Route path="/produto/:id" component={newIncident}/>
             </Switch>
         </BrowserRouter>
     );
