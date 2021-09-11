@@ -90,6 +90,7 @@ module.exports = {
         for (i in comps) {
             const prds = await connection("ProdutoCompra")
                 .select("Produto.*")
+                .select("ProdutoCompra.Quantidade as qtd_compra")
                 .select("Fornecedor.Nome as nome_fornecedor")
                 .leftJoin("Produto", "Produto.id_Produto", "ProdutoCompra.id_Produto")
                 .leftJoin("Fornecedor", "Produto.id_Fornecedor", "Fornecedor.id_Fornecedor")

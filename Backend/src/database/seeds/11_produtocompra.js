@@ -7,7 +7,7 @@ exports.seed = function(knex) {
       return knex('ProdutoCompra').insert([        
         {id_Compra:1,id_Produto:1,Quantidade:1},
 
-        {id_Compra:2,id_Produto:2,Quantidade:1},
+        {id_Compra:2,id_Produto:2,Quantidade:3},
 
         {id_Compra:3,id_Produto:3,Quantidade:1},
         {id_Compra:3,id_Produto:4,Quantidade:1},
@@ -24,7 +24,7 @@ exports.seed = function(knex) {
         
         {id_Compra:9,id_Produto:3,Quantidade:1},
       
-        {id_Compra:10,id_Produto:2,Quantidade:1},
+        {id_Compra:10,id_Produto:2,Quantidade:5},
         
         {id_Compra:11,id_Produto:4,Quantidade:1},
         
@@ -35,7 +35,7 @@ exports.seed = function(knex) {
         {id_Compra:14,id_Produto:11,Quantidade:1},
         
         {id_Compra:15,id_Produto:7,Quantidade:1},
-        {id_Compra:15,id_Produto:8,Quantidade:1},
+        {id_Compra:15,id_Produto:8,Quantidade:3},
         
         {id_Compra:16,id_Produto:4,Quantidade:1},
         {id_Compra:16,id_Produto:10,Quantidade:1},
