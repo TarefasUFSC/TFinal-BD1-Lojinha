@@ -60,6 +60,7 @@ Para utilizar a APi foram feitos três formas de comunicação, as quais estão 
 - Um programa em python
 
 ### Site
+![image](https://user-images.githubusercontent.com/42501669/132998391-615e9c3b-c66f-474f-a12a-9064cf1a3446.png)
 
 #### Como Rodar
 
