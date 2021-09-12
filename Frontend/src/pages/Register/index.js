@@ -40,7 +40,7 @@ export default function Resgister() {
           const response = await api.put(path, data);
           alert(`Registrou-se`);
 
-          history.push("/");
+          history.push("/login");
         } catch (err) {
           alert(`Deu ruim`);
         }
@@ -111,12 +111,12 @@ export default function Resgister() {
               <label className="label-radio">Vendedor</label>
             </div>
             <div className="register-button-container">
-              <Link to="/login">
-                <div className="register-myButton">Login</div>
-              </Link>
-              <button className="register-myButton2" type="submit">
+              <button className="register-myButton" type="submit">
                 Registar
               </button>
+              <Link to="/login">
+                <div className="register-myButton2">Login</div>
+              </Link>
             </div>
           </form>
         </div>

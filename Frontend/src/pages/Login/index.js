@@ -55,10 +55,11 @@ export default function Login(){
                             onChange = {e=>setSenha(e.target.value)}
                         />
                         <div className="login-button-container">
+                        <button className="login-myButton">Login</button>  
                             <Link to="/register">
-                                <div className="login-myButton"> Registre-se</div>
+                                <div className="login-myButton2"> Registre-se</div>
                             </Link>
-                            <button className="login-myButton2">Login</button>                            
+                                                      
                         </div>
                     </form>
                 </div>
