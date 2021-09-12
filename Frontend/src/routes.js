@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';                          // Oficial
 import Register from './pages/Register';                    // Oficial
 import Profile from './pages/Profile';
-import newIncident from './pages/NewIncident';
+import Produto from './pages/Product';
 
 export default function Routes(){
     return(
@@ -16,7 +16,7 @@ export default function Routes(){
                 <Route path="/login" exact component={Login}/>
                 <Route path="/register" exact component={Register}/>
                 <Route path="/profile" exact component={Profile}/>
-                <Route path="/produto/:id" component={newIncident}/>
+                <Route path="/produto/:id" component={Produto}/>
             </Switch>
         </BrowserRouter>
     );
