@@ -139,3 +139,9 @@
 	position:relative;
 	top:1px;
 }
+
+.produto-comentario-textarea{
+    resize:vertical;
+    min-height: 50px;
+    max-height: 150px;
+}

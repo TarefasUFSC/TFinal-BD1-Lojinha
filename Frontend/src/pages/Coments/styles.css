@@ -1,6 +1,6 @@
 .coments-container{
     min-height: 600px;
-    max-height: 1200px;
+    max-height: auto;
     display: flex;
     flex-direction: column;
     margin: 80px;
@@ -17,7 +17,6 @@
 .coments-list-container{
     display: flex;
     flex-direction: column;
-    
 }
 
 .coments-details-container{

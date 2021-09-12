@@ -6,23 +6,9 @@ import defaultImg from "../../assets/default.png";
 import "./styles.css";
 
 export default function Coments(props) {
-  const [com, setCom] = useState([]);
+  const com = props.com;
+  const setCom = props.setCom;
   const id = props.id;
-
-  useEffect(async () => {
-    try {
-      await api
-        .get("/produto/comentario/" + String(id), {
-          headers: {},
-        })
-        .then((response) => {
-          setCom(response.data.Comments);
-          console.log(response.data);
-        });
-    } catch (err) {
-      alert(err.response.data.Erro);
-    }
-  }, []);
 
   return (
     <div className="coments-container">
