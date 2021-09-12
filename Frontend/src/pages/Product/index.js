@@ -22,7 +22,6 @@ export default function Produto(props) {
   const [comentario, setComentario] = useState();
   const [com, setCom] = useState([]);
   const [userNota, setUserNota] = useState(0);
-  let [carrinho, setCarrinho] = useState("");
 
   const history = useHistory();
 
@@ -53,35 +52,38 @@ export default function Produto(props) {
   }
 
   async function handleBuy(id, qtd) {
-    await setCarrinho(localStorage.getItem("carrinho"));
-    if (!carrinho) localStorage.setItem("carrinho", String(id) + ":" + String(qtd));
-    else {
-      let i;
-      let vec = carrinho.split(",");
-      for (i = 0; i < vec.length; i++) {
-        let aux = vec[i].split(":");
-        if(aux[0]==id){
-          let quantidade = parseInt(aux[1]);
-          vec[i] = aux[0] + ":" + String(quantidade+qtd);
-          console.log("BUT I THINK IT'S FINE, IT'S COOL")
+    let carrinho = await localStorage.getItem("carrinho");
+    if (carrinho) {
+      carrinho = carrinho.split(",");
+      console.log(carrinho);
+      let achou = false;
+      for (let i in carrinho) {
+        let itCar = carrinho[i].split(":");
+        console.log(itCar);
+        if (id == itCar[0]) {
+          itCar[1] = await String(parseInt(itCar[1]) + parseInt(qtd));
+          carrinho[i] = (await itCar[0]) + ":" + itCar[1];
+          achou = true;
+          console.log(itCar);
+          console.log(carrinho);
           break;
         }
       }
-      if(i==vec.length){
-        console.log("i: " + String(i))
-        console.log("vec.length: " + String(vec.length))
-        console.log("carrinho: " + carrinho)
-        console.log("entrou")
-        vec.push("," + String(id) + ":1");}
-      carrinho = "";
-      for(i=0;i<vec.length;i++){
-        if(i>0) carrinho = carrinho + "," + vec[i];
-        else carrinho = carrinho + vec[i];
-        
+      if (!achou) {
+        carrinho.push([String(id) + ":" + String(qtd)]);
       }
-      await localStorage.setItem("carrinho", carrinho);
-      carrinho = "";
-    }
+      let saveCar = "";
+      for (let i in carrinho) {
+        saveCar = saveCar + carrinho[i];
+        if(i!=carrinho.length-1){
+          saveCar = saveCar + ',';
+        }
+      }
+
+      await localStorage.setItem("carrinho", saveCar);
+      console.log(saveCar);
+    }else
+    await localStorage.setItem("carrinho", id + ":" + String(qtd));
   }
 
   async function getProduto() {
