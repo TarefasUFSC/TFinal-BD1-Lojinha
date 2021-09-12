@@ -23,7 +23,8 @@ export default function Login(){
             const response = await api.post('/login', data);
             localStorage.setItem('reqtype', response.data.response.tipo);
             localStorage.setItem('reqid', response.data.response.id);
-            history.push('/');
+            if(response.data.response.tipo == '1') history.push('/profile');
+            else history.push('/');
         }catch (err){
             alert(err.response.data.Erro);
         }

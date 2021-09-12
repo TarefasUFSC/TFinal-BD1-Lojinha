@@ -4,6 +4,7 @@ import api from "../../services/api";
 
 import logoImg from "../../assets/logo.png";
 
+import Coments from "../Coments";
 import Header from "../Header";
 import "./styles.css";
 
@@ -37,7 +38,7 @@ export default function Produto(props) {
 
   return (
     <div className="produto-container">
-      <Header />
+      <Header/>
       <div className="produto-info-container">
         <div className="produto-img-desc-container">
           <div className="produto-img-container">
@@ -73,10 +74,11 @@ export default function Produto(props) {
             <button className="produto-comprar-button">Comprar</button>
           </div>
           <div className="produto-nota">
-            <p>Nota: {nota}</p>
+            <p>Nota: {nota?nota:"Nenhuma nota registrada. Seja o primeiro a avaliar"}</p>
           </div>
         </div>
       </div>
+      <Coments/>
     </div>
   );
 }

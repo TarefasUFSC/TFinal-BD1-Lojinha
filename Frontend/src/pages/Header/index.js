@@ -10,6 +10,7 @@ export default function Header() {
   const [userId, setuserId] = useState();
   const [userData, setuserData] = useState({});
   const [userType, setuserType] = useState("");
+  const [saldo, setSaldo] = useState("");
 
   useEffect(async () => {
     await setuserId(localStorage.getItem("reqid"));
@@ -33,8 +34,10 @@ export default function Header() {
       });
       if (userType === "0") {
         setuserData(response.data.Cliente[0]);
+        setSaldo(response.data.Cliente[0].Saldo);
       } else {
         setuserData(response.data.Fornecedor[0]);
+        setSaldo(response.data.Fornecedor[0].Saldo);
       }
     } catch {
       alert("Não foi possível carregar a imagem");
@@ -43,16 +46,23 @@ export default function Header() {
   return (
     <div className="header-container">
       <div className="header-title-container">
-        <img className="header-img-logo" src={logoImg} alt="Logo" />
+        <Link to={userType=='1'?('/profile'):('/')}>
+          <img className="header-img-logo" src={logoImg} alt="Logo" />
+        </Link>
         <span className="header-title">Lojinha Gourmet</span>
       </div>
       <div className="header-links-container">
+        {userId && userId ? (
+          <p>Saldo: R$ {saldo}</p>
+        ) : (
+          <p></p>
+        )}
         <Link to="/profile">
           <div className="header-carrinhoButton">
             <b>Carrinho</b>
           </div>
         </Link>
-        {userData&&userId ? (
+        {userData && userId ? (
           <Link to="/profile">
             <div className="header-img-container">
               <img

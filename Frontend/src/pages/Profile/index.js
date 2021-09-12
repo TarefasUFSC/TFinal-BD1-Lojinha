@@ -8,8 +8,6 @@ import Header from '../Header';
 import logoImg from '../../assets/logo.png';
 
 export default function Profile(){
-    //const [incidents, setIncidents] = useState([]);
-
     const [userId, setuserId] = useState();
     const [userType, setuserType] = useState("");
     const [senha, setSenha] = useState();
@@ -43,7 +41,6 @@ export default function Profile(){
                     reqtype: String(userType)
                 }});
             alert(`Dados atualizados`);
-            console.log("RESPONSE KLR: " + response);
         } catch (err) {}
       }
 
