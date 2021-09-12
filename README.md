@@ -4,6 +4,21 @@
 
 Para este projeto foi-se utilizada uma aplicação em Node.js, que se conecta com o banco de dados através de uma biblioteca chamada knex.js e que aceita requisições HTTP na porta 3333 utilizando express.js.
 
+### Como rodar
+
+> Requisitos:
+>
+> - Node.JS
+> - NPM
+
+Siga os passos para executar em sua máquina local:
+
+- `git clone https://github.com/CodeWracker/TFinal-BD1-Lojinha.git`
+- `cd Backend`
+- `npm i`
+- `npm run seed`
+- `npm start`
+
 ### Requisições
 
 | Base Path  | rota                 | Descrção                                      |
@@ -45,6 +60,20 @@ Para utilizar a APi foram feitos três formas de comunicação, as quais estão 
 - Um programa em python
 
 ### Site
+
+#### Como Rodar
+
+> Requisitos:
+>
+> - Node.JS
+> - NPM
+
+Siga os passos para executar em sua máquina local:
+
+- `git clone https://github.com/CodeWracker/TFinal-BD1-Lojinha.git`
+- `cd Frontend`
+- `npm i`
+- `npm start`
 
 ### Insomnia
 
