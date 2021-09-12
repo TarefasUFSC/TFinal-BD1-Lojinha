@@ -13,15 +13,15 @@ export default function Home() {
   const history = useHistory();
   const [filtroCategoria, setfiltroCategoria] = useState('');
   const [filtroBusca, setfiltroBusca] = useState('');
-  const [filtroQuantidade, setfiltroQuantidade] = useState('');
+  const [filtroQuantidade, setfiltroQuantidade] = useState(5);
   let data = "";
 
-  function handleClickCategoria(id){
-    if(id==filtroCategoria) setfiltroCategoria('');
+  function handleClickCategoria(id) {
+    if (id == filtroCategoria) setfiltroCategoria('');
     else setfiltroCategoria(String(id));
   }
 
-  function handleInput(e){
+  function handleInput(e) {
     setfiltroBusca(e.target.value);
   }
 
@@ -36,16 +36,6 @@ export default function Home() {
   }, []);
 
   useEffect(async () => {
-    await api.get("/produto", {}).then((response) => {
-      setItems(response.data.response.Produtos);
-    });
-  }, []);
-
-  useEffect(async()=>{BuscaProdutos()},[filtroCategoria])
-
-  useEffect(async()=>{BuscaProdutos()},[filtroBusca])
-
-  async function BuscaProdutos(){
     await api.get("/produto", {
       headers: {
         busca: filtroBusca,
@@ -54,11 +44,34 @@ export default function Home() {
       }
     }).then((response) => {
       setItems(response.data.response.Produtos);
-    }, );
-  }
+    });
+  }, []);
 
-  function handleClickProduto(id){
-    history.push('produto/'+String(id));
+  useEffect(async () => { BuscaProdutos() }, [filtroCategoria])
+
+  useEffect(async () => { BuscaProdutos() }, [filtroBusca])
+
+  async function BuscaProdutos() {
+    await api.get("/produto", {
+      headers: {
+        busca: filtroBusca,
+        categorias: filtroCategoria,
+        quantidade: filtroQuantidade
+      }
+    }).then((response) => {
+      setItems(response.data.response.Produtos);
+    });
+  }
+  useEffect(async()=>{
+
+    await BuscaProdutos();
+  },[filtroQuantidade])
+  async function handleGetMais(){
+      await setfiltroQuantidade(filtroQuantidade + 10);
+      
+  }
+  function handleClickProduto(id) {
+    history.push('produto/' + String(id));
   }
 
   return (
@@ -72,8 +85,8 @@ export default function Home() {
           <ul>
             {categorias ? (
               categorias.map((categoria) => (
-                <li onClick={()=>{handleClickCategoria(categoria.id_Categoria)}} key={categoria.id_Categoria}>
-                  <div style={{backgroundColor:categoria.id_Categoria==filtroCategoria?"#606060":"white"}} className="">
+                <li onClick={() => { handleClickCategoria(categoria.id_Categoria) }} key={categoria.id_Categoria}>
+                  <div style={{ backgroundColor: categoria.id_Categoria == filtroCategoria ? "#606060" : "white" }} className="">
                     <p>
                       <b>{categoria.nome_categoria}</b>
                     </p>
@@ -92,13 +105,14 @@ export default function Home() {
           <div className="home-itens-list-container">
             {items ? (
               items.map((item) => (
-              <div onClick={()=>{handleClickProduto(item.id_Produto)}} key={item.id_Produto}>
-                  <Produtos imagem={item.Imagem} nome={item.Nome} valor={String(item.Valor)}/>
+                <div onClick={() => { handleClickProduto(item.id_Produto) }} key={item.id_Produto}>
+                  <Produtos imagem={item.Imagem} nome={item.Nome} valor={String(item.Valor)} />
                 </div>))
             ) : (
               <p>Não há nenhum item a venda</p>
             )}
           </div>
+          <button onClick={async () => {handleGetMais() }}>Mostrar mais</button>
         </div>
       </div>
     </div>

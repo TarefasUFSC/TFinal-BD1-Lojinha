@@ -1,6 +1,6 @@
 .header-container {
   height: 70px;
-  width: 1350px;
+  width: 99vw;
   background-color: #b2acfa;
   display: flex;
   align-items: center;
@@ -29,7 +29,6 @@
 }
 
 .header-links-container {
-  margin-right: 50px;
   display: flex;
   flex-direction: row;
   font-size: 20px;
