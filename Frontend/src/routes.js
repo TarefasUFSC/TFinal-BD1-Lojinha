@@ -6,7 +6,7 @@ import Login from './pages/Login';                          // Oficial
 import Register from './pages/Register';                    // Oficial
 import Profile from './pages/Profile';
 import Produto from './pages/Product';
-
+import Carrinho from './pages/Carrinho'
 
 
 
@@ -21,6 +21,7 @@ export default function Routes(){
                 <Route path="/register" exact component={Register}/>
                 <Route path="/profile" exact component={Profile}/>
                 <Route path="/produto/:id" component={Produto}/>
+                <Route path="/carrinho" component={Carrinho}/>
             </Switch>
         </BrowserRouter>
         

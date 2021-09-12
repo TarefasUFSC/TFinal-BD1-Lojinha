@@ -58,7 +58,7 @@ export default function Header() {
         ) : (
           <p></p>
         )}
-        <Link to="/profile">
+        <Link to="/carrinho">
           <div className="header-carrinhoButton">
             <b>Carrinho</b>
           </div>
