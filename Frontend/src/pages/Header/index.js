@@ -5,6 +5,7 @@ import "./styles.css";
 import api from "../../services/api";
 
 import logoImg from "../../assets/logo.png";
+import defaultImg from "../../assets/default.png";
 
 export default function Header() {
   const [userId, setuserId] = useState();
@@ -70,7 +71,7 @@ export default function Header() {
                 src={
                   userData.ImagemPerfil
                     ? "data:image/png;base64," + userData.ImagemPerfil
-                    : logoImg
+                    : defaultImg
                 }
               />
             </div>

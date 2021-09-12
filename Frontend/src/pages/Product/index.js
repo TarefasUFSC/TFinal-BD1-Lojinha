@@ -78,7 +78,7 @@ export default function Produto(props) {
           </div>
         </div>
       </div>
-      <Coments/>
+      {id?<Coments id={id}/>:<p>Loading</p>}
     </div>
   );
 }

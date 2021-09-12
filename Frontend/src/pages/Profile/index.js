@@ -5,7 +5,7 @@ import './styles.css';
 import api from '../../services/api';
 import Header from '../Header';
 
-import logoImg from '../../assets/logo.png';
+import defaultImg from "../../assets/default.png";
 
 export default function Profile(){
     const [userId, setuserId] = useState();
@@ -125,7 +125,7 @@ export default function Profile(){
                     </div>
                     <div className="profile-user-img-container">
                         <img className="profile-user-img" 
-                            src={img?"data:image/png;base64," + img: logoImg}/>
+                            src={img?"data:image/png;base64," + img: defaultImg}/>
                         <input 
                             className="profile-opt-button2"
                             type="file" 
