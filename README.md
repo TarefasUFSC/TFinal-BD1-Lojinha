@@ -13,11 +13,11 @@ Para este projeto foi-se utilizada uma aplicação em Node.js, que se conecta co
 
 Siga os passos para executar em sua máquina local:
 
-- `git clone https://github.com/CodeWracker/TFinal-BD1-Lojinha.git`
-- `cd Backend`
-- `npm i`
-- `npm run seed`
-- `npm start`
+- `$ git clone https://github.com/CodeWracker/TFinal-BD1-Lojinha.git`
+- `$ cd Backend`
+- `$ npm i`
+- `$ npm run seed`
+- `$ npm start`
 
 ### Requisições
 
@@ -70,10 +70,10 @@ Para utilizar a APi foram feitos três formas de comunicação, as quais estão 
 
 Siga os passos para executar em sua máquina local:
 
-- `git clone https://github.com/CodeWracker/TFinal-BD1-Lojinha.git`
-- `cd Frontend`
-- `npm i`
-- `npm start`
+- `$ git clone https://github.com/CodeWracker/TFinal-BD1-Lojinha.git`
+- `$ cd Frontend`
+- `$ npm i`
+- `$ npm start`
 
 ### Insomnia
 
