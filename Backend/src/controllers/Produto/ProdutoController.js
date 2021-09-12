@@ -24,6 +24,7 @@ module.exports = {
         } else {
             categorias = categorias.split('+');
         }
+        const qtdprod  = await connection("Produto").select("*"); 
         const prods = await connection("Produto")
             .distinct('Produto.*').join('ProdutoCategoria', function () {
                 this.on('ProdutoCategoria.id_Produto', '=', 'Produto.id_Produto')
@@ -32,7 +33,7 @@ module.exports = {
             .whereIn("id_Categoria", categorias)
             .limit(quantidade);
 
-        return res.json({ "response": { "Produtos": prods } })
+        return res.json({ "response": { "Produtos": prods,"Total":qtdprod.length } })
     },
     async getAllCategorias(req, res) {
 
