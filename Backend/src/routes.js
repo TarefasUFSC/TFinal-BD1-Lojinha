@@ -67,7 +67,4 @@ const compraRouter = express.Router({ mergeParams: true })
 routes.use('/compra', compraRouter)
 compraRouter.put('/new', CompraController.newCompra)
 
-
-
-//isso aqui eu tenho que tirar depois... //isso aqui na real é /user/extrato/{id}
 module.exports = routes
