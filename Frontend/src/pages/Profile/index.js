@@ -1,52 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
 import './styles.css';
 import api from '../../services/api';
 import Header from '../Header';
 
 import defaultImg from "../../assets/default.png";
+import ProfileDataContainer from '../profile-data-container';
 
 export default function Profile(){
     const [userId, setuserId] = useState();
     const [userType, setuserType] = useState("");
-    const [senha, setSenha] = useState();
-    const [confirmaSenha, setconfirmaSenha] = useState();
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [img, setImg] = useState();
-
     const history = useHistory();
-
-    async function handleUpdateData(e) {
-        e.preventDefault();
-        if(!userId) return;
-        let path = "";
-        const Nome = nome;
-        const ImagemPerfil = img;
-        let data;
-        if(senha){
-            if(senha != confirmaSenha){
-                alert("Senhas não batem");
-                return;
-            }
-            data = {Nome, email, senha, ImagemPerfil};
-        }
-        else data = {Nome, email, ImagemPerfil};
-        try {
-            path="/user/cliente/" + String(userId);
-            const response = await api.post(path, data, {
-                headers:{
-                    reqid: userId,
-                    reqtype: String(userType)
-                }});
-            alert(`Dados atualizados`);
-        } catch (err) {}
-      }
+    const [opt, setOpt] = useState('1');
 
     function handleLogOut(){
         localStorage.clear();
         history.push('/');
+    }
+
+    function handleOpt(num){
+        setOpt(num);
+        console.log(num)
     }
     
     useEffect(async () => {
@@ -70,70 +48,21 @@ export default function Profile(){
           setNome(rdata.Nome);
           setEmail(rdata.email);
         }, [userType]);
-    
-    async function handleChangeImg(e){
-        console.log(e)
-        try{
-        var file = e.target.files[0];
-        var reader = new FileReader();
-        var url = reader.readAsDataURL(file);
-        reader.onloadend = function (event) {
-            setImg(reader.result.split(",")[1]);
-          }.bind(this);
-        } catch (err){}
-    }
 
     return(
         <div className="profile-container">
             <Header/>
             <div className="profile-body">
                 <div className="profile-options">
-                    <button className="profile-opt-button">Dados</button>
-                    <button className="profile-opt-button">Compras</button>
+                    <button onClick={()=>{handleOpt('1')}} className="profile-opt-button">Dados</button>
+                    <button onClick={()=>{handleOpt('2')}} className="profile-opt-button">Compras</button>
                     <button className="profile-opt-button">Pagamento</button>
                     <button className="profile-opt-button2" onClick={()=>{handleLogOut()}} >Log Out</button>
                 </div>
-                <div className="profile-data-container">
-                    <div className="profile-user-data-container">
-                    <form onSubmit={handleUpdateData}>
-                            <input 
-                                value={nome}
-                                placeholder="Nome"
-                                onChange={(e) => setNome(e.target.value)} 
-                            />
-                            <input
-                                value={email} 
-                                placeholder="Email"
-                                onChange={(e) => setEmail(e.target.value)}
-                            />   
-                            <input
-                                value={senha}
-                                id="password"
-                                type="password"
-                                placeholder="Nova Senha" 
-                                onChange={(e) => setSenha(e.target.value)}
-                            />
-                            <input
-                                value={confirmaSenha}
-                                id="confirm_password"
-                                type="password"
-                                placeholder="Confirme Nova Senha"
-                                onChange={(e) => setconfirmaSenha(e.target.value)}
-                            />
-                            <button className="profile-opt-button" type="submit">Salvar</button>
-                        </form>
-                    </div>
-                    <div className="profile-user-img-container">
-                        <img className="profile-user-img" 
-                            src={img?"data:image/png;base64," + img: defaultImg}/>
-                        <input 
-                            className="profile-opt-button2"
-                            type="file" 
-                            name="user[image]" 
-                            multiple="true"
-                            onChange={handleChangeImg}/>
-                    </div>
-                </div>
+                {opt=='1'?(<ProfileDataContainer/>):(<>
+                    {opt=='2'?(<Header/>):(<></>)
+                    }</>)
+                }
             </div>
         </div>
     )

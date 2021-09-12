@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Switch, useHistory } from "react-router-dom";
 import api from "../../services/api";
 
 import logoImg from "../../assets/logo.png";
@@ -22,6 +22,9 @@ export default function Produto(props) {
   const [comentario, setComentario] = useState();
   const [com, setCom] = useState([]);
   const [userNota, setUserNota] = useState(0);
+  let [carrinho, setCarrinho] = useState("");
+
+  const history = useHistory();
 
   useEffect(async () => {
     await setuserId(localStorage.getItem("reqid"));
@@ -30,7 +33,7 @@ export default function Produto(props) {
     await getComentarios();
   }, []);
 
-  async function getComentarios(){
+  async function getComentarios() {
     try {
       await api
         .get("/produto/comentario/" + String(id), {
@@ -45,8 +48,44 @@ export default function Produto(props) {
     }
   }
 
-  async function getProduto(){
-    try{
+  function handleRedirect() {
+    history.push("/login");
+  }
+
+  async function handleBuy(id, qtd) {
+    await setCarrinho(localStorage.getItem("carrinho"));
+    if (!carrinho) localStorage.setItem("carrinho", String(id) + ":" + String(qtd));
+    else {
+      let i;
+      let vec = carrinho.split(",");
+      for (i = 0; i < vec.length; i++) {
+        let aux = vec[i].split(":");
+        if(aux[0]==id){
+          let quantidade = parseInt(aux[1]);
+          vec[i] = aux[0] + ":" + String(quantidade+qtd);
+          console.log("BUT I THINK IT'S FINE, IT'S COOL")
+          break;
+        }
+      }
+      if(i==vec.length){
+        console.log("i: " + String(i))
+        console.log("vec.length: " + String(vec.length))
+        console.log("carrinho: " + carrinho)
+        console.log("entrou")
+        vec.push("," + String(id) + ":1");}
+      carrinho = "";
+      for(i=0;i<vec.length;i++){
+        if(i>0) carrinho = carrinho + "," + vec[i];
+        else carrinho = carrinho + vec[i];
+        
+      }
+      await localStorage.setItem("carrinho", carrinho);
+      carrinho = "";
+    }
+  }
+
+  async function getProduto() {
+    try {
       await api.get("/produto/" + String(id), {}).then((response) => {
         setEstoque(response.data.Detalhes[0].Quantidade);
         setTitulo(response.data.Detalhes[0].Nome);
@@ -55,25 +94,25 @@ export default function Produto(props) {
         setDescricao(response.data.Detalhes[0].Descricao);
         setImg(response.data.Detalhes[0].Imagem);
       });
-    }catch (err) {
+    } catch (err) {
       alert(err.response.data.Erro);
     }
   }
 
   async function handleSubmitComentario() {
-    try{
+    try {
       const data = {
-        "id_cliente": userId,
-        "comentario": comentario,
-        "nota": userNota
-      }
+        id_cliente: userId,
+        comentario: comentario,
+        nota: userNota,
+      };
       console.log(data);
-      await api.put("/produto/comentario/" + String(id), data)
-      setComentario('');
+      await api.put("/produto/comentario/" + String(id), data);
+      setComentario("");
       setUserNota(0);
       getComentarios();
       getProduto();
-    }catch (err) {
+    } catch (err) {
       alert(err.response.data.Erro);
     }
   }
@@ -123,12 +162,28 @@ export default function Produto(props) {
             </div>
           </div>
           <div className="produto-comprar">
-            <button className="produto-comprar-button">Comprar</button>
+            {userId ? (
+              <button
+                className="produto-comprar-button"
+                onClick={() => {
+                  handleBuy(id, qtd);
+                }}
+              >
+                Comprar
+              </button>
+            ) : (
+              <button
+                className="produto-comprar-button"
+                onClick={handleRedirect}
+              >
+                Comprar
+              </button>
+            )}
           </div>
           <div className="produto-nota">
             <p>
               Nota:{" "}
-              {nota
+              {nota != undefined || nota != null
                 ? nota
                 : "Nenhuma nota registrada. Seja o primeiro a avaliar"}
             </p>
@@ -144,7 +199,9 @@ export default function Produto(props) {
                 cols="50"
                 placeholder="Escreva seu comentario aqui"
                 value={comentario}
-                onChange={e=>{setComentario(e.target.value)}}
+                onChange={(e) => {
+                  setComentario(e.target.value);
+                }}
               ></textarea>
               <input
                 min="0"
@@ -152,13 +209,19 @@ export default function Produto(props) {
                 type="number"
                 placeholder="Dê sua nota aqui (0-10):"
                 value={userNota}
-                onChange={e=>{setUserNota(e.target.value)}}
-                ></input>
-                <button 
-                  style={{marginLeft:"194px"}}
-                  className="produto-qtd-button"
-                  onClick={()=>{handleSubmitComentario()}}
-                  >Comentar</button>
+                onChange={(e) => {
+                  setUserNota(e.target.value);
+                }}
+              ></input>
+              <button
+                style={{ marginLeft: "194px" }}
+                className="produto-qtd-button"
+                onClick={() => {
+                  handleSubmitComentario();
+                }}
+              >
+                Comentar
+              </button>
             </div>
           ) : (
             <></>

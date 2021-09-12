@@ -1,7 +1,6 @@
 import React from "react";
 import{BrowserRouter, Route, Switch} from 'react-router-dom';
 
-//import LoginB from './pages/LoginB'
 import Home from './pages/Home';
 import Login from './pages/Login';                          // Oficial
 import Register from './pages/Register';                    // Oficial
