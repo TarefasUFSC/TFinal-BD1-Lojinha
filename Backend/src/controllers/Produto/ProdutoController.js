@@ -24,15 +24,15 @@ module.exports = {
         } else {
             categorias = categorias.split('+');
         }
-        const qtdprod  = await connection("Produto").select("*"); 
+        const qtdprod = await connection("Produto").select("*");
         const prods = await connection("Produto")
             .distinct('Produto.*')
-            .leftJoin("ProdutoCategoria","ProdutoCategoria.id_Produto","Produto.id_Produto")
+            .leftJoin("ProdutoCategoria", "ProdutoCategoria.id_Produto", "Produto.id_Produto")
             .where('Nome', 'like', busca)
             .whereIn("id_Categoria", categorias).orWhereNull("id_Categoria")
             .limit(quantidade);
 
-        return res.json({ "response": { "Produtos": prods,"Total":qtdprod.length } })
+        return res.json({ "response": { "Produtos": prods, "Total": qtdprod.length } })
     },
     async getAllCategorias(req, res) {
 
@@ -65,7 +65,7 @@ module.exports = {
     },
     async newProduto(req, res) {
         const { reqid, reqtype } = req.headers;
-        const { nome, preco, descricao, quantidade, imagem } = req.body;
+        const { nome, preco, descricao, quantidade, imagem, categorias } = req.body;
 
         if (reqtype != "1") {
             return res.status(400).json({ "Erro": "Você não tem permissão para fazer isso" })
@@ -85,6 +85,18 @@ module.exports = {
         console.log(prd);
         if (!prd.length) {
             return res.status(500).json({ "Erro": "Erro ao adicionar produto" })
+        }
+        if (categorias) {
+            for (let i in categorias) {
+                const ct = await connection("Categoria").select("id_Categoria").where("id_Categoria", categorias[i])
+                if (!ct.length) {
+                    return res.status(404).json({ "Erro": "Categoria invalida" })
+                }
+                const cat = await connection("ProdutoCategoria").insert({
+                    "id_Categoria": categorias[i],
+                    "id_Produto": prd[0]
+                })
+            }
         }
         return res.json({ "id": prd[0] })
     },
