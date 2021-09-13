@@ -116,6 +116,7 @@ export default function Carrinho(props) {
       setItens([]);
       setCarrinho({"carrinho":[]})
       localStorage.setItem("carrinho",JSON.stringify({"carrinho":[]}))
+      window.location.reload(); 
     } catch (err){
       alert(err.response.data.Erro);
   }
