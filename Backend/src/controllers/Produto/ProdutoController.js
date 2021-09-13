@@ -26,11 +26,10 @@ module.exports = {
         }
         const qtdprod  = await connection("Produto").select("*"); 
         const prods = await connection("Produto")
-            .distinct('Produto.*').join('ProdutoCategoria', function () {
-                this.on('ProdutoCategoria.id_Produto', '=', 'Produto.id_Produto')
-            })
+            .distinct('Produto.*')
+            .leftJoin("ProdutoCategoria","ProdutoCategoria.id_Produto","Produto.id_Produto")
             .where('Nome', 'like', busca)
-            .whereIn("id_Categoria", categorias)
+            .whereIn("id_Categoria", categorias).orWhereNull("id_Categoria")
             .limit(quantidade);
 
         return res.json({ "response": { "Produtos": prods,"Total":qtdprod.length } })
