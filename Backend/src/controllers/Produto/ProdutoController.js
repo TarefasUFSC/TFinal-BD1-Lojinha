@@ -86,19 +86,21 @@ module.exports = {
         if (!prd.length) {
             return res.status(500).json({ "Erro": "Erro ao adicionar produto" })
         }
+        let msg = "";
         if (categorias) {
             for (let i in categorias) {
                 const ct = await connection("Categoria").select("id_Categoria").where("id_Categoria", categorias[i])
                 if (!ct.length) {
-                    return res.status(404).json({ "Erro": "Categoria invalida" })
+                    msg = "Uma ou mais das categorias não foi adicionada, pois era invalida"
+                } else {
+                    const cat = await connection("ProdutoCategoria").insert({
+                        "id_Categoria": categorias[i],
+                        "id_Produto": prd[0]
+                    })
                 }
-                const cat = await connection("ProdutoCategoria").insert({
-                    "id_Categoria": categorias[i],
-                    "id_Produto": prd[0]
-                })
             }
         }
-        return res.json({ "id": prd[0] })
+        return res.json({ "id": prd[0], "mensagem": msg })
     },
     async deleteProduto(req, res) {
         // ele não deleta as referencias a ele quando exclui, então fica as fk apontando pro nada.... tem que ver isso ai
