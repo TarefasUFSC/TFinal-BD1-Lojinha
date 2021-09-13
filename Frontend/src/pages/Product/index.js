@@ -22,6 +22,9 @@ export default function Produto(props) {
   const [comentario, setComentario] = useState();
   const [com, setCom] = useState([]);
   const [userNota, setUserNota] = useState(0);
+  const [escolhendoLista, setEscolhendoLista] = useState(false);
+  const [listaDesj, setListaDesej] = useState();
+  const [listasdeDes, setListasdeDes] = useState();
 
   const history = useHistory();
 
@@ -53,30 +56,37 @@ export default function Produto(props) {
 
   async function handleBuy(id, qtd) {
     let carrinho = await localStorage.getItem("carrinho");
-    carrinho = JSON.parse(carrinho)
+    carrinho = JSON.parse(carrinho);
     if (carrinho) {
       console.log(carrinho);
       let achou = false;
-      for (let i in carrinho['carrinho']) {
+      for (let i in carrinho["carrinho"]) {
         let itCar = await carrinho["carrinho"][i];
         await console.log(carrinho["carrinho"][i]);
         if (id == carrinho["carrinho"][i]["id_Produto"]) {
-          carrinho["carrinho"][i]["quantidade"] = await carrinho["carrinho"][i]["quantidade"] + parseInt(qtd);
+          carrinho["carrinho"][i]["quantidade"] =
+            (await carrinho["carrinho"][i]["quantidade"]) + parseInt(qtd);
           achou = true;
           console.log(carrinho);
           break;
         }
       }
       if (!achou) {
-        carrinho["carrinho"].push({"id_Produto":id,"quantidade":parseInt(qtd)});
+        carrinho["carrinho"].push({
+          id_Produto: id,
+          quantidade: parseInt(qtd),
+        });
       }
-      
 
       await localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    }else
-    
-    await localStorage.setItem("carrinho",JSON.stringify({"carrinho":[{"id_Produto":id,"quantidade":parseInt(qtd)}]}));
-    alert("Adicionado " + String(qtd) + " ao seu carrinho")
+    } else
+      await localStorage.setItem(
+        "carrinho",
+        JSON.stringify({
+          carrinho: [{ id_Produto: id, quantidade: parseInt(qtd) }],
+        })
+      );
+    alert("Adicionado " + String(qtd) + " ao seu carrinho");
   }
 
   async function getProduto() {
@@ -118,9 +128,60 @@ export default function Produto(props) {
   function handleDecrease() {
     if (qtd != 1) setQtd(qtd - 1);
   }
-
+  async function handleBtnAdicionaLista() {
+    setEscolhendoLista(true);
+    try {
+      await api
+        .get("/user/lista/" + String(userId), {
+          headers: {
+            reqid: String(userId),
+            reqtype: String(userType),
+          },
+        })
+        .then((response) => {
+          setListasdeDes(response.data.Listas);
+        });
+    } catch (err) {
+      alert(err.response.data.Erro);
+    }
+  }
   return (
     <div className="produto-container">
+      {escolhendoLista ? (
+        <div className="escolhe-lista-container">
+          <div className="listas-container">
+            <p style={{ fontSize: "20pt" }}>
+              <b>Listas de Desejo</b>
+            </p>
+            {listasdeDes ? (
+              listasdeDes.map((itLis) => (
+                <div key={itLis.id_ListaDeDesejo} className="lista-data-container">
+                  <div className="lista-nome-container">
+                    <p style={{ fontSize: "16pt" }}>{itLis.nome}</p>
+                  </div>
+                  <div className="add-lista-btn-container">
+                    <button
+                      className="produto-comprar-button"
+                      onClick={() => {}}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <></>
+            )}
+            <div className="btn-cancelar-lista-container">
+              <button className="produto-lista-button" onClick={() => {}}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
       <Header />
       <div className="produto-info-container">
         <div className="produto-img-desc-container">
@@ -157,23 +218,22 @@ export default function Produto(props) {
             </div>
           </div>
           <div className="produto-comprar">
-            {userId ? (
-              <button
-                className="produto-comprar-button"
-                onClick={() => {
-                  handleBuy(id, qtd);
-                }}
-              >
-                Comprar
-              </button>
-            ) : (
-              <button
-                className="produto-comprar-button"
-                onClick={handleRedirect}
-              >
-                Comprar
-              </button>
-            )}
+            <button
+              className="produto-comprar-button"
+              onClick={() => {
+                handleBuy(id, qtd);
+              }}
+            >
+              Add no Carrinho
+            </button>
+            <button
+              className="produto-lista-button"
+              onClick={() => {
+                handleBtnAdicionaLista();
+              }}
+            >
+              Adicionar a Lista
+            </button>
           </div>
           <div className="produto-nota">
             <p>
