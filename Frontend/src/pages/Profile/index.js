@@ -85,7 +85,7 @@ export default function Profile() {
               handleOpt("4");
             }}
           >
-            Slado
+            Saldo
           </button>
           <button
             className="profile-opt-button2"
