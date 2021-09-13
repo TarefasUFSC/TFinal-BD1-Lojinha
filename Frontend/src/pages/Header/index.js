@@ -47,14 +47,14 @@ export default function Header() {
   return (
     <div className="header-container">
       <div className="header-title-container">
-        <Link to={userType=='1'?('/profile'):('/')}>
+        <Link to={userType == "1" ? "/profile" : "/"}>
           <img className="header-img-logo" src={logoImg} alt="Logo" />
         </Link>
         <span className="header-title">Lojinha Gourmet</span>
       </div>
       <div className="header-links-container">
         {userId && userId ? (
-          <p>Saldo: R$ {parseInt(saldo*100)/100}</p>
+          <p>Saldo: R$ {parseInt(saldo * 100) / 100}</p>
         ) : (
           <p></p>
         )}
@@ -65,15 +65,19 @@ export default function Header() {
         </Link>
         {userData && userId ? (
           <Link to="/profile">
-            <div className="header-img-container">
-              <img
-                className="header-user-data"
-                src={
-                  userData.ImagemPerfil
-                    ? "data:image/png;base64," + userData.ImagemPerfil
-                    : defaultImg
-                }
-              />
+            <div className="header-user-info">
+              <div className="header-img-container">
+                <img
+                  className="header-user-data"
+                  src={
+                    userData.ImagemPerfil
+                      ? "data:image/png;base64," + userData.ImagemPerfil
+                      : defaultImg
+                  }
+                />
+              </div>
+
+              <p className="user-nome">{userData.Nome}</p>
             </div>
           </Link>
         ) : (

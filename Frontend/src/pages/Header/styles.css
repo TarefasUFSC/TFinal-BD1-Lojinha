@@ -69,3 +69,20 @@
   overflow-x: hidden;
   overflow-y: hidden;
 }
+.header-user-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:20vw;
+}
+.user-nome{
+  margin-top:10px;
+  color: #000000;
+  text-decoration: none !important;
+  
+}
+a{
+
+  color: #000000;
+  text-decoration: none !important;
+}
