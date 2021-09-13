@@ -53,37 +53,30 @@ export default function Produto(props) {
 
   async function handleBuy(id, qtd) {
     let carrinho = await localStorage.getItem("carrinho");
+    carrinho = JSON.parse(carrinho)
     if (carrinho) {
-      carrinho = carrinho.split(",");
       console.log(carrinho);
       let achou = false;
-      for (let i in carrinho) {
-        let itCar = carrinho[i].split(":");
-        console.log(itCar);
-        if (id == itCar[0]) {
-          itCar[1] = await String(parseInt(itCar[1]) + parseInt(qtd));
-          carrinho[i] = (await itCar[0]) + ":" + itCar[1];
+      for (let i in carrinho['carrinho']) {
+        let itCar = await carrinho["carrinho"][i];
+        await console.log(carrinho["carrinho"][i]);
+        if (id == carrinho["carrinho"][i]["id_Produto"]) {
+          carrinho["carrinho"][i]["quantidade"] = await carrinho["carrinho"][i]["quantidade"] + parseInt(qtd);
           achou = true;
-          console.log(itCar);
           console.log(carrinho);
           break;
         }
       }
       if (!achou) {
-        carrinho.push([String(id) + ":" + String(qtd)]);
+        carrinho["carrinho"].push({"id_Produto":id,"quantidade":parseInt(qtd)});
       }
-      let saveCar = "";
-      for (let i in carrinho) {
-        saveCar = saveCar + carrinho[i];
-        if(i!=carrinho.length-1){
-          saveCar = saveCar + ',';
-        }
-      }
+      
 
-      await localStorage.setItem("carrinho", saveCar);
-      console.log(saveCar);
+      await localStorage.setItem("carrinho", JSON.stringify(carrinho));
     }else
-    await localStorage.setItem("carrinho", id + ":" + String(qtd));
+    
+    await localStorage.setItem("carrinho",JSON.stringify({"carrinho":[{"id_Produto":id,"quantidade":parseInt(qtd)}]}));
+    alert("Adicionado " + String(qtd) + " ao seu carrinho")
   }
 
   async function getProduto() {

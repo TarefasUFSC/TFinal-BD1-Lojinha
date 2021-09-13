@@ -8,7 +8,7 @@ import Header from "../Header";
 import "./styles.css";
 
 export default function Carrinho(props) {
-  const [carrinho, setCarrinho] = useState([]);
+  const [carrinho, setCarrinho] = useState({});
   const [itens, setItens] = useState([]);
   const [total, setTotal] = useState();
   useEffect(async () => {
@@ -24,10 +24,10 @@ export default function Carrinho(props) {
   }
   useEffect(async () => {
     let its = [];
-    for (let i in carrinho) {
-      console.log(carrinho[i][0]);
-      let it = await getProduto(carrinho[i][0]);
-      its.push([it, carrinho[i][1]]);
+    for (let i in carrinho["carrinho"]) {
+      console.log(carrinho["carrinho"][i]["id_Produto"]);
+      let it = await getProduto(carrinho["carrinho"][i]["id_Produto"]);
+      its.push([it, carrinho["carrinho"][i]["quantidade"]]);
     }
     await setItens(its);
     console.log(its);
@@ -39,26 +39,54 @@ export default function Carrinho(props) {
   async function getCarrinho() {
     let carr = await localStorage.getItem("carrinho");
 
-    if (carr) {
-      let auxCar = [];
-      carr = carr.split(",");
-      console.log(carr);
-      let achou = false;
-      for (let i in carr) {
-        let itCar = await carr[i].split(":");
-        await auxCar.push(itCar);
-      }
-      await console.log(auxCar);
-
-      await setCarrinho(auxCar);
-    }
+    await setCarrinho(JSON.parse(carr));
+  }
+  async function handleIncrease(id) {
+    console.log(id);
     console.log(carrinho);
+    let auxCar = carrinho;
+    let auxIt = itens;
+
+    setItens("");
+    for (let i in auxCar["carrinho"]) {
+      if (id == auxCar["carrinho"][i]["id_Produto"]) {
+        auxCar["carrinho"][i]["quantidade"] =
+          (await auxCar["carrinho"][i]["quantidade"]) + 1;
+        auxIt[i][1] = auxIt[0][1] + 1;
+        if (auxCar["carrinho"][i]["quantidade"] > itens[i][0]["Quantidade"]) {
+          auxCar["carrinho"][i]["quantidade"] = await itens[i][0]["Quantidade"];
+
+          auxIt[i][1] = itens[i][0]["Quantidade"];
+        }
+      }
+    }
+    await localStorage.setItem("carrinho", JSON.stringify(auxCar));
+    setCarrinho(auxCar);
+    setItens(auxIt);
+    console.log(itens);
   }
-  function handleIncrease() {
-    //if (qtd < estoque) setQtd(qtd + 1);
-  }
-  function handleDecrease() {
-    //if (qtd != 1) setQtd(qtd - 1);
+  async function handleDecrease(id) {
+    console.log(id);
+    let auxCar = carrinho;
+    let auxIt = itens;
+    setItens("");
+    for (let i in auxCar["carrinho"]) {
+      if (id == auxCar["carrinho"][i]["id_Produto"]) {
+        auxCar["carrinho"][i]["quantidade"] =
+          (await auxCar["carrinho"][i]["quantidade"]) - 1;
+        auxIt[i][1] = auxIt[i][1] - 1;
+        if (auxCar["carrinho"][i]["quantidade"] == 0) {
+          auxCar["carrinho"].splice(i, 1);
+          auxIt.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    await localStorage.setItem("carrinho", JSON.stringify(auxCar));
+    setCarrinho(auxCar);
+    setItens(auxIt);
+    console.log(itens);
   }
   async function getTotal() {
     let tot = 0;
@@ -69,6 +97,28 @@ export default function Carrinho(props) {
     }
     console.log(tot);
     setTotal(parseInt(tot * 100) / 100);
+  }
+  async function handleCompra() {
+    try {
+      let data = {
+        id_Cliente: localStorage.getItem("reqid"),
+        total: total,
+        carrinho: carrinho["carrinho"],
+      };
+      let path = "/compra/new";
+      const response = await api.put(path, data, {
+        headers: {
+          reqid: localStorage.getItem("reqid"),
+          reqtype: localStorage.getItem("reqtype"),
+        },
+      });
+      alert(`Compra Efetuada`);
+      setItens([]);
+      setCarrinho({"carrinho":[]})
+      localStorage.setItem("carrinho",JSON.stringify({"carrinho":[]}))
+    } catch (err){
+      alert(err.response.data.Erro);
+  }
   }
   return (
     <div className="carrinho-container">
@@ -103,13 +153,17 @@ export default function Carrinho(props) {
                     </div>
                     <div className="produto-botoes">
                       <button
-                        onClick={handleIncrease}
+                        onClick={() => {
+                          handleIncrease(it[0]["id_Produto"]);
+                        }}
                         className="produto-qtd-button"
                       >
                         +
                       </button>
                       <button
-                        onClick={handleDecrease}
+                        onClick={() => {
+                          handleDecrease(it[0]["id_Produto"]);
+                        }}
                         className="produto-qtd-button"
                       >
                         -
@@ -146,8 +200,18 @@ export default function Carrinho(props) {
             <div className="carrinho-total-container">
               <p>Total: R${total ? total : "0"}</p>
             </div>
+            <div className="carrinho-btn-comprar">
+              <button
+                onClick={() => {
+                  handleCompra();
+                }}
+                className="produto-qtd-button"
+              >
+                Comprar
+              </button>
+            </div>
           </div>
-            <div className="resumo-complemento"></div>
+          <div className="resumo-complemento"></div>
         </div>
       </div>
     </div>

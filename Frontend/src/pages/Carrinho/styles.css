@@ -80,4 +80,10 @@
     align-items: flex-start;
     justify-content: space-between;
 }
+.carrinho-btn-comprar{
+    margin:50px 25px 12px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 

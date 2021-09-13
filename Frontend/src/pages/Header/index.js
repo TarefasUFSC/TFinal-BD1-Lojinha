@@ -54,7 +54,7 @@ export default function Header() {
       </div>
       <div className="header-links-container">
         {userId && userId ? (
-          <p>Saldo: R$ {saldo}</p>
+          <p>Saldo: R$ {parseInt(saldo*100)/100}</p>
         ) : (
           <p></p>
         )}

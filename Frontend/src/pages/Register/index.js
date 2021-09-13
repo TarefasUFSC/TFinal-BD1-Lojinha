@@ -41,9 +41,9 @@ export default function Resgister() {
           alert(`Registrou-se`);
 
           history.push("/login");
-        } catch (err) {
-          alert(`Deu ruim`);
-        }
+        } catch (err){
+          alert(err.response.data.Erro);
+      }
       }
     }
   }

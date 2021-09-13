@@ -41,7 +41,9 @@ export default function ProfileDataContainer() {
                     reqtype: String(userType)
                 }});
             alert(`Dados atualizados`);
-        } catch (err) {}
+        } catch (err){
+          alert(err.response.data.Erro);
+      }
       }
     
     useEffect(async () => {
