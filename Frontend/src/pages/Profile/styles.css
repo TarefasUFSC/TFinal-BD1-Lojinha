@@ -1,17 +1,20 @@
 .profile-container{
     width: 99vw;
-    height: 630px;
+    min-height: 630px;
+    max-height: auto;
 }
 
 .profile-body{
     display: flex;
     flex-direction: row;
-    height: 90vh;
+    min-height: 90vh;
+    max-height: auto;
     justify-content: space-between;
 }
 
 .profile-options{
-    height: 70vh;
+    min-height: 70vh;
+    max-height: auto;
     width: 15vw;
     display: flex;
     flex-direction: column;

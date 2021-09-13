@@ -1,0 +1,38 @@
+.profile-list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 50px 30px;
+    min-height: 70vh;
+    width: 70vw;
+    background-color: white;
+    max-height: auto;
+    padding-bottom: 56px;
+}
+.list-data-hole-container{
+    
+    display: flex;
+    flex-direction: column;
+    
+    min-height: 5vh;
+    max-height: auto;
+}
+.selected-list-data-container{
+    width: 85%;
+    margin:0px 25px 0px 40px;
+    display: flex;
+    flex-direction: column;
+    max-height: auto;
+}
+.list-prod-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 8px;
+    height: 120px;
+    width:100%;
+    
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 15px !important;
+    background-color: #f8f8f8;
+    align-items: center;
+}
