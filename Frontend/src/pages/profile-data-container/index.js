@@ -15,10 +15,12 @@ export default function ProfileDataContainer() {
     const [nome, setNome] = useState();
     const [email, setEmail] = useState();
     const [img, setImg] = useState();
+    const [atualizando,setAtualizando] = useState(false);
 
     const history = useHistory();
 
     async function handleUpdateData(e) {
+      await setAtualizando(true);
         e.preventDefault();
         if(!userId) return;
         let path = "";
@@ -44,6 +46,7 @@ export default function ProfileDataContainer() {
         } catch (err){
           alert(err.response.data.Erro);
       }
+      await setAtualizando(false)
       }
     
     useEffect(async () => {
@@ -52,6 +55,7 @@ export default function ProfileDataContainer() {
       }, []);
 
     useEffect(async () => {
+      await setAtualizando(true);
         const response = await api.get(`/user/${userId}`, {
             headers: {
               cliente: userType == "0" ? "1" : "0",
@@ -66,6 +70,8 @@ export default function ProfileDataContainer() {
           setImg(rdata.ImagemPerfil);
           setNome(rdata.Nome);
           setEmail(rdata.email);
+          
+      await setAtualizando(false)
         }, [userType]);
     
     async function handleChangeImg(e){
@@ -83,6 +89,7 @@ export default function ProfileDataContainer() {
 
   return (
     <div className="profile-data-container">
+      {atualizando?(<div className="profile-atualiza-container"></div>):(<></>)}
       <div className="profile-user-data-container">
         <form onSubmit={handleUpdateData}>
           <input

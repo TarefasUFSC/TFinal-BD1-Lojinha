@@ -118,3 +118,13 @@
 	position:relative;
 	top:1px;
 }
+.profile-atualiza-container{
+    position: absolute;
+    top: 0px; left: 0px;
+    background-color: rgba(0, 0, 0, .5);
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
