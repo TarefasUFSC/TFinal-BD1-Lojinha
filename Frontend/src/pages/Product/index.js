@@ -23,7 +23,6 @@ export default function Produto(props) {
   const [com, setCom] = useState([]);
   const [userNota, setUserNota] = useState(0);
   const [escolhendoLista, setEscolhendoLista] = useState(false);
-  const [listaDesj, setListaDesej] = useState();
   const [listasdeDes, setListasdeDes] = useState();
 
   const history = useHistory();
@@ -145,6 +144,24 @@ export default function Produto(props) {
       alert(err.response.data.Erro);
     }
   }
+  async function handleAddLista(lid){
+    try {
+      await api
+        .put("/user/lista/" + String(userId),{
+          "id_Lista":lid,
+          "id_Produto":id
+        }, {headers: {
+          reqid: String(userId),
+          reqtype: String(userType),
+        },})
+        .then((response) => {
+          alert(response.data.response)
+          setEscolhendoLista(false);
+        });
+    } catch (err) {
+      alert(err.response.data.Erro);
+    }
+  }
   return (
     <div className="produto-container">
       {escolhendoLista ? (
@@ -162,7 +179,7 @@ export default function Produto(props) {
                   <div className="add-lista-btn-container">
                     <button
                       className="produto-comprar-button"
-                      onClick={() => {}}
+                      onClick={() => {handleAddLista(itLis.id_ListaDeDesejo)}}
                     >
                       Add
                     </button>
@@ -173,7 +190,7 @@ export default function Produto(props) {
               <></>
             )}
             <div className="btn-cancelar-lista-container">
-              <button className="produto-lista-button" onClick={() => {}}>
+              <button className="produto-lista-button" onClick={() => {setEscolhendoLista(false)}}>
                 Cancelar
               </button>
             </div>
