@@ -1,0 +1,130 @@
+.profile-container{
+    width: 99vw;
+    min-height: 630px;
+    max-height: auto;
+}
+
+.profile-body{
+    display: flex;
+    flex-direction: row;
+    min-height: 90vh;
+    max-height: auto;
+    justify-content: space-between;
+}
+
+.profile-options{
+    min-height: 70vh;
+    max-height: auto;
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    margin: 50px 30px;
+    background-color: white;
+}
+
+.profile-opt-button{
+    margin: 20px 20px;
+	background-color:#7892c2;
+	border-radius:8px;
+	border:1px solid #4e6096;
+	display:flex;
+    justify-content: center;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Hina Mincho;
+	font-size:20px;
+    height: 30px;
+    padding-left: 24px;
+    padding-right: 24px;
+	padding-bottom: 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+
+.profile-opt-button:hover{
+	background-color:#476e9e;
+}
+
+.profile-opt-button:active{
+	position:relative;
+	top:1px;
+}
+
+.profile-data-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 50px 30px;
+    height: 70vh;
+    width: 70vw;
+    background-color: white;
+}
+
+.profile-user-data-container{
+    margin: 30px 30px 30px 100px;
+    width: 50wv;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-user-data-container input{
+    margin-top: 30px; 
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.profile-user-img-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 100px;
+    margin: 30px;
+    width: 40wv;
+}
+
+.profile-user-img-container button{
+    margin-bottom: 150px;
+}
+
+.profile-user-img{
+    height: 256px;
+    width: 256px;
+    border-radius: 50%;
+    margin-left: 100px;
+}
+
+.profile-opt-button2{
+    margin: 20px 20px;
+	background-color:#db4646;
+	border-radius:8px;
+	border:1px solid #942121;
+	display:flex;
+    justify-content: center;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Hina Mincho;
+	font-size:20px;
+    height: 30px;
+	padding-bottom: 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #701111;
+
+}
+.profile-opt-button2:hover{
+	background-color:#9e2626;
+}
+
+.profile-opt-button2:active{
+	position:relative;
+	top:1px;
+}
+.profile-atualiza-container{
+    position: absolute;
+    top: 0px; left: 0px;
+    background-color: rgba(0, 0, 0, .5);
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
