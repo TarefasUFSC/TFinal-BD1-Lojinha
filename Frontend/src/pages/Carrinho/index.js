@@ -38,8 +38,10 @@ export default function Carrinho(props) {
 
   async function getCarrinho() {
     let carr = await localStorage.getItem("carrinho");
-
+    if(carr)
     await setCarrinho(JSON.parse(carr));
+    else
+    await setCarrinho({"carrinho":[]});
   }
   async function handleIncrease(id) {
     console.log(id);

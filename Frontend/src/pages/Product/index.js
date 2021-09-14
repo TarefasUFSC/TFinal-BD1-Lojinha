@@ -21,9 +21,10 @@ export default function Produto(props) {
   const [userType, setuserType] = useState("");
   const [comentario, setComentario] = useState();
   const [com, setCom] = useState([]);
-  const [userNota, setUserNota] = useState(0);
+  const [userNota, setUserNota] = useState();
   const [escolhendoLista, setEscolhendoLista] = useState(false);
   const [listasdeDes, setListasdeDes] = useState();
+  const [Nome_Fornecedor, setNomeFor] = useState();
 
   const history = useHistory();
 
@@ -97,6 +98,7 @@ export default function Produto(props) {
         setPreco(response.data.Detalhes[0].Valor);
         setDescricao(response.data.Detalhes[0].Descricao);
         setImg(response.data.Detalhes[0].Imagem);
+        setNomeFor(response.data.Detalhes[0].Nome_Fornecedor)
       });
     } catch (err) {
       alert(err.response.data.Erro);
@@ -174,7 +176,7 @@ export default function Produto(props) {
               listasdeDes.map((itLis) => (
                 <div key={itLis.id_ListaDeDesejo} className="lista-data-container">
                   <div className="lista-nome-container">
-                    <p style={{ fontSize: "16pt" }}>{itLis.nome}</p>
+                    <p style={{ fontSize: "16pt" }}>{itLis.nome} </p>
                   </div>
                   <div className="add-lista-btn-container">
                     <button
@@ -215,7 +217,7 @@ export default function Produto(props) {
         <div className="produto-valor-botoes-container">
           <div className="produto-titulo">
             <p>
-              <b>{titulo}</b>
+              <b>{titulo} | {Nome_Fornecedor}</b>
             </p>
           </div>
           <div className="produto-preco">

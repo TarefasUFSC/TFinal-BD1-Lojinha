@@ -98,7 +98,7 @@ export default function Home() {
                           ? "#606060"
                           : "white",
                     }}
-                    className=""
+                    className="cat-nome"
                   >
                     <p>
                       <b>{categoria.nome_categoria}</b>

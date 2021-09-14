@@ -12,10 +12,10 @@
 }
 
 .produto-img-desc-container{
-    width: 800px;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    margin: 15px;
+    margin: 26px;
 }
 
 .produto-img-container{
@@ -41,7 +41,7 @@
 }
 
 .produto-valor-botoes-container{
-    width: 400px;
+    width: 30vw;
     display: flex;
     flex-direction: column;
 }
@@ -92,8 +92,12 @@
 .produto-nota{
     font-size: 16px;
     margin: 12px 0px;
+    min-width: 30%;
 }
-
+.create-comentario-container{
+    display: flex;
+    flex-direction: column;
+}
 .produto-comprar-button{
 	background-color:#7892c2;
 	border-radius:8px;
