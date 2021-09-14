@@ -1,5 +1,5 @@
 .home-container{
-    width: 99%;
+    width: 99wh;
 }
 
 .home-data-container{
@@ -31,7 +31,7 @@
 .home-itens-container{
     margin: 10px;
     margin-right: 5vw;
-    width: 1100px;
+    width: 70vw;
     max-height: auto;
     background-color: #dfe6ed;
     display: flex;
